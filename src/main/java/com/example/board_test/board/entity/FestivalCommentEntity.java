@@ -30,4 +30,10 @@ public class FestivalCommentEntity extends TimeEntity {
     @ManyToOne
     @JoinColumn(name = "user_key")
     private MemberEntity member;
+
+    public void update(String comment, String image)
+    {
+        this.comment=comment;
+        this.image=image;
+    }
 }
