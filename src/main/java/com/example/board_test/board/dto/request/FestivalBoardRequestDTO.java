@@ -29,8 +29,8 @@ public class FestivalBoardRequestDTO {
                         f_id(f_id).
                         title(title).
                         image(image).
-                        like(0).
-                        view(0).
+                        likeCnt(0).
+                        viewCnt(0).
                         category(category).
                         member(member).
                         build();

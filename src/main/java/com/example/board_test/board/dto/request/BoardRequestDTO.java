@@ -3,15 +3,13 @@ package com.example.board_test.board.dto.request;
 
 import com.example.board_test.board.entity.BoardEntity;
 import com.example.board_test.domain.member.entity.MemberEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Setter
 public class BoardRequestDTO {
     private Long n_id;
     private String content;
@@ -32,9 +30,9 @@ public class BoardRequestDTO {
                         n_id(n_id).
                         content(content).
                         title(title).
-                        like(0).
-                        dislike(0).
-                        view(0).
+                        likeCnt(0).
+                        dislikeCnt(0).
+                        viewCnt(0).
                         image(image).
                         save(save).
                         category(category).

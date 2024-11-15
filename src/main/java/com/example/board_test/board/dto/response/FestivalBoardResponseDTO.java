@@ -25,8 +25,8 @@ public class FestivalBoardResponseDTO {
         this.title=festivalBoard.getTitle();
         this.image=festivalBoard.getImage();
         this.content= festivalBoard.getContent();
-        this.like= festivalBoard.getLike();
-        this.view= festivalBoard.getView();
+        this.like= festivalBoard.getLikeCnt();
+        this.view= festivalBoard.getViewCnt();
         this.category= festivalBoard.getCategory();
         this.festivalComments=festivalBoard.getFestivalComments().stream().map(FestivalCommentResponseDTO::new).collect(Collectors.toList());
     }

@@ -37,7 +37,7 @@ public class FavoriteService {
         BoardEntity board=boardRepository.findById(board_id)
                 .orElseThrow(()->new IllegalArgumentException("찾을 수없는 게시글"));
 
-        if(favoriteRepository.existsMemberAndBoard(member,board))
+        if(favoriteRepository.existsByMemberAndBoard(member,board))
         {
             throw new IllegalArgumentException("이미 추가된 게시글입니다~");
         }

@@ -18,16 +18,22 @@ public class FestivalBoardEntity extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long f_id;
+
     @Column(length = 50,nullable = false)
     private String title;
-    @Column(length = 255)
+
+
     private String image;
+
     @Column(columnDefinition = "Text", nullable = false)
     private String content;
+
     @Column(columnDefinition = "integer default 0")
-    private int like;
+    private int likeCnt;
+
     @Column(columnDefinition = "integer default 0")
-    private int view;
+    private int viewCnt;
+
     @Column(length = 8)
     private int category;
 

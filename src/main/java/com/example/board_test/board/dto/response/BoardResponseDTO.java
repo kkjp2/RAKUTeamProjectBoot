@@ -27,10 +27,10 @@ public class BoardResponseDTO {
         this.n_id=board.getN_id();
         this.content=board.getContent();
         this.title=board.getTitle();
-        this.like=board.getLike();
-        this.dislike=board.getDislike();
+        this.like=board.getLikeCnt();
+        this.dislike=board.getDislikeCnt();
         this.member=board.getMember().getNick();
-        this.view=board.getView();
+        this.view=board.getViewCnt();
         this.image=board.getImage();
         this.createdDate=board.getCreatedDate();
         this.modifiedDate=board.getModifiedDate();

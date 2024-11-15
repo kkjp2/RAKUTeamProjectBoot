@@ -5,6 +5,7 @@ import com.example.board_test.board.dto.request.ImageRequestDTO;
 import com.example.board_test.board.dto.response.ImageResponseDTO;
 import com.example.board_test.board.entity.BoardEntity;
 import com.example.board_test.board.entity.FestivalBoardEntity;
+import com.example.board_test.board.entity.ImageEntity;
 import com.example.board_test.board.repository.BoardRepository;
 import com.example.board_test.board.repository.FestivalBoardRepository;
 import com.example.board_test.board.repository.ImageRepository;
@@ -43,24 +44,28 @@ public class ImageService {
         {
             throw new IllegalArgumentException("이미지는 한가지에만 할당하세요");
         }
-        return null;
+        ImageEntity image=ImageEntity.builder()
+                .image(imageRequestDTO.getImage())
+                .member(member)
+                .build();
+        if(imageRequestDTO.getBoardId() != null)
+        {
+            BoardEntity board=boardRepository.findById(imageRequestDTO.getBoardId())
+                    .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다"));
+            image.setBoard(board);
+        }
+        if(imageRequestDTO.getFestivalBoardId() != null)
+        {
+            FestivalBoardEntity festivalBoard=festivalBoardRepository.findById(imageRequestDTO.getFestivalBoardId())
+                    .orElseThrow(()-> new IllegalArgumentException("해당 축제 게시글이 없습니다.."));
+            image.setFestivalBoard(festivalBoard);
+        }
+        imageRepository.save(image);
+        return image.getImg_id();
     }
 
 
 
-
-
-//    @Transactional
-//    public Long saveImage(String imageUrl, MemberEntity member, BoardEntity board, FestivalBoardEntity festivalBoard)
-//    {
-//        ImageEntity image=ImageEntity.builder().
-//                image(imageUrl)
-//                .member(member)
-//                .board(board)
-//                .festivalBoard(festivalBoard)
-//                .build();
-//        return imageRepository.save(image).getImg_id();
-//    }
 
     @Transactional(readOnly = true)
     public List<ImageResponseDTO> getImagesByBoard(BoardEntity board)

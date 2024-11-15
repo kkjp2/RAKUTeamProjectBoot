@@ -16,17 +16,13 @@ public class CommentEntity extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long comment_id;
+
     @Column(length = 255)
     private String image;
     @Column(columnDefinition = "Text")
     private String commentText;
     @Column(columnDefinition = "Text")
     private String siren;
-
-
-
-
-
 
     @ManyToOne
     @JoinColumn(name = "n_id")

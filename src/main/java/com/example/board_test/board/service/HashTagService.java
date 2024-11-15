@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +24,7 @@ public class HashTagService {
     public void searchKeyword(HashTagRequestDTO hashTagRequestDTO)
     {
         String keyword=hashTagRequestDTO.getKeyword();
-        if(hashtagRepository.existByKeyword(keyword))
+        if(hashtagRepository.existsByKeyword(keyword))
         {
             hashtagRepository.SearchCount(keyword);
         }
@@ -38,10 +37,11 @@ public class HashTagService {
     @Transactional(readOnly = true)
     public List<HashTagResponseDTO> getTop10Hashtags()
     {
-        return hashtagRepository.findTop10ByOrderBySearchCountDesc()
-                .stream()
-                .map(HashTagResponseDTO::new)
-                .collect(Collectors.toList());
+//        return hashtagRepository.findTop10ByOrderBySearchCountDesc()
+//                .stream()
+//                .map(HashTagResponseDTO::new)
+//                .collect(Collectors.toList());
+        return null;
     }
 
 }

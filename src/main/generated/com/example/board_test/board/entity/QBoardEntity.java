@@ -33,11 +33,11 @@ public class QBoardEntity extends EntityPathBase<BoardEntity> {
     //inherited
     public final StringPath createdDate = _super.createdDate;
 
-    public final NumberPath<Integer> dislike = createNumber("dislike", Integer.class);
+    public final NumberPath<Integer> dislikeCnt = createNumber("dislikeCnt", Integer.class);
 
     public final StringPath image = createString("image");
 
-    public final NumberPath<Integer> like = createNumber("like", Integer.class);
+    public final NumberPath<Integer> likeCnt = createNumber("likeCnt", Integer.class);
 
     public final com.example.board_test.domain.member.entity.QMemberEntity member;
 
@@ -52,7 +52,7 @@ public class QBoardEntity extends EntityPathBase<BoardEntity> {
 
     public final StringPath title = createString("title");
 
-    public final NumberPath<Integer> view = createNumber("view", Integer.class);
+    public final NumberPath<Integer> viewCnt = createNumber("viewCnt", Integer.class);
 
     public QBoardEntity(String variable) {
         this(BoardEntity.class, forVariable(variable), INITS);

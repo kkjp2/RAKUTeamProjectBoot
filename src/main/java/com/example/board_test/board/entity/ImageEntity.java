@@ -11,6 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @ToString
 public class ImageEntity extends TimeEntity {
     @Id
@@ -23,6 +24,7 @@ public class ImageEntity extends TimeEntity {
     @ManyToOne
     @JoinColumn(name = "user_key")
     private MemberEntity member;
+
     @ManyToOne
     @JoinColumn(name = "n_id")
     private BoardEntity board;

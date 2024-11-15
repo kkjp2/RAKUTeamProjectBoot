@@ -55,12 +55,13 @@ public class CommentService {
     }
 
     @Transactional
-    public  Long updateComment(Long c_id,Long board_id, CommentRequestDTO commentRequestDTO)
+    public Long updateComment(Long c_id,Long n_id, CommentRequestDTO commentRequestDTO)
     {
-        CommentEntity comment=commentRepository.findByPostsIdAndId(board_id,c_id)
-                .orElseThrow(()-> new IllegalArgumentException("この投稿が見つからないか、削除されました"));
-        comment.update(commentRequestDTO.getCommentText(),commentRequestDTO.getImage());
-        return comment.getComment_id();
+        return null;
+//        CommentEntity comment=commentRepository.findByBoard_n_idAndComment_id(n_id,c_id)
+//                .orElseThrow(()-> new IllegalArgumentException("alhamdulila "));
+//        comment.update(commentRequestDTO.getCommentText(),commentRequestDTO.getImage());
+//        return comment.getComment_id();
     }
 
     @Transactional

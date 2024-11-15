@@ -2,14 +2,14 @@ package com.example.board_test.domain.member.dto;
 
 
 import com.example.board_test.domain.member.entity.enums.MemberRole;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
 @Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class MemberDTO {
     private Long user_key;
     private String id;

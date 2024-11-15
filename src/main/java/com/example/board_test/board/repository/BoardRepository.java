@@ -15,23 +15,23 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE BoardEntity b SET b.like= b.like+1 WHERE b.n_id= :nId AND b.member = :member")
-    void Like(@Param("nId") Long nId, @Param("member")MemberEntity member);
+    @Query("UPDATE BoardEntity b SET b.likeCnt= b.likeCnt+1 WHERE b.n_id= :n_id AND b.member = :member")
+    void Like(@Param("n_id") Long nId, @Param("member")MemberEntity member);
 
     @Modifying
     @Transactional
-    @Query("UPDATE BoardEntity b SET b.dislike= b.dislike +1 WHERE b.n_id= :nId AND b.member =:member")
-    void DisLike(@Param("nId") Long nId, @Param("member") MemberEntity member);
+    @Query("UPDATE BoardEntity b SET b.dislikeCnt= b.dislikeCnt+1 WHERE b.n_id= :n_id AND b.member =:member")
+    void DisLike(@Param("n_id") Long nId, @Param("member") MemberEntity member);
 
     @Modifying
     @Transactional
-    @Query("UPDATE BoardEntity b SET b.view=b.view +1 WHERE b.n_id = :nId")
-    void View(@Param("nId") Long nId);
+    @Query("UPDATE BoardEntity b SET b.viewCnt=b.viewCnt+1 WHERE b.n_id = :n_id")
+    void View(@Param("n_id") Long nId);
 
     @Modifying
     @Transactional
-    @Query("UPDATE BoardEntity b SET b.like=:like, b.dislike=:dislike, b.view=:view WHERE b.n_id= :nId")
-    void updateBoardStats(@Param("nId") Long nId,
+    @Query("UPDATE BoardEntity b SET b.likeCnt=:like, b.dislikeCnt=:dislike, b.viewCnt=:view WHERE b.n_id= :n_id")
+    void updateBoardStats(@Param("n_id") Long nId,
                           @Param("like") int like,
                           @Param("dislike") int dislike,
                           @Param("view") int view

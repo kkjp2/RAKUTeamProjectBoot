@@ -57,10 +57,11 @@ public class FestivalCommentService {
     @Transactional
     public Long updateFestivalComment(Long fc_id, Long fb_id, FestivalCommentRequestDTO festivalCommentRequestDTO)
     {
-        FestivalCommentEntity festivalComment=festivalCommentRepository.findByPostsIdAndId(fb_id,fc_id)
-                .orElseThrow(()-> new IllegalArgumentException("안대요~"));
-        festivalComment.update(festivalCommentRequestDTO.getComment(),festivalCommentRequestDTO.getImage());
-        return festivalComment.getFc_id();
+        return null;
+//        FestivalCommentEntity festivalComment=festivalCommentRepository.findByPostsIdAndId(fb_id,fc_id)
+//                .orElseThrow(()-> new IllegalArgumentException("안대요~"));
+//        festivalComment.update(festivalCommentRequestDTO.getComment(),festivalCommentRequestDTO.getImage());
+//        return festivalComment.getFc_id();
     }
 
     @Transactional
