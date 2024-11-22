@@ -41,7 +41,7 @@ public class CommentService {
         commentRequestDTO.setBoard(board);
         CommentEntity comment=commentRequestDTO.toEntity();
         commentRepository.save(comment);
-        return comment.getComment_id();
+        return comment.getCommId();
     }
 
     //댓글 목록

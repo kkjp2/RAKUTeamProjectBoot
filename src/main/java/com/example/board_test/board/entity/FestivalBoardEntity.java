@@ -17,7 +17,7 @@ import java.util.List;
 public class FestivalBoardEntity extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long f_id;
+    private Long fbId;
 
     @Column(length = 50,nullable = false)
     private String title;

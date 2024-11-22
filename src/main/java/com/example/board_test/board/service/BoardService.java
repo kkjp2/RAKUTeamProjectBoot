@@ -1,18 +1,23 @@
 package com.example.board_test.board.service;
 
 
+import com.example.board_test.board.dto.request.BoardRegisterRequest;
 import com.example.board_test.board.dto.request.BoardRequestDTO;
 import com.example.board_test.board.dto.response.BoardResponseDTO;
 import com.example.board_test.board.entity.BoardEntity;
 import com.example.board_test.board.repository.BoardRepository;
+import com.example.board_test.domain.member.dto.MemberDTO;
 import com.example.board_test.domain.member.entity.MemberEntity;
+import com.example.board_test.domain.member.mapper.MemberMapper;
 import com.example.board_test.domain.member.repository.MemberRepository;
+import com.example.board_test.global.security.MemberSecurity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,17 +32,36 @@ public class BoardService {
     @Autowired
     private final MemberRepository memberRepository;
 
+    @Autowired
+    private final MemberSecurity memberSecurity;
 
     @Transactional
-    public Long createBoard(BoardRequestDTO boardRequestDTO, String nickname)
-    {
-        MemberEntity member=memberRepository.findById(nickname)
-                .orElseThrow(()->new IllegalArgumentException("Warning!!!!Warning!!!!!!"));
-        boardRequestDTO.setMember(member);
-        BoardEntity boardEntity=boardRequestDTO.toEntity();
+    public void register(BoardRegisterRequest request){
+        MemberDTO memberDTO = memberSecurity.getMember();
+        MemberEntity memberEntity = MemberMapper.createEntity(memberDTO);
+        BoardEntity boardEntity = BoardEntity.builder()
+                .title(request.getTitle())
+                .content(request.getContent())
+                .image(request.getImage())
+                .category(request.getCategory())
+                .commentList(new ArrayList<>())
+                .member(
+                        memberEntity
+                ).build();
         boardRepository.save(boardEntity);
-        return boardEntity.getN_id();
     }
+
+//    @Transactional
+//    public Long createBoard(BoardRequestDTO boardRequestDTO)
+//    {
+////        MemberEntity member=memberRepository.findById(nickname)
+////                .orElseThrow(()->new IllegalArgumentException("Warning!!!!Warning!!!!!!"));
+////        MemberDTO memberDTO = memberSecurity.getMember();
+////        boardRequestDTO.setMember(member);
+////        BoardEntity boardEntity=boardRequestDTO.toEntity();
+////        boardRepository.save(boardEntity);
+////        return boardEntity.getN_id();
+//    }
 
     //게시물 조회
     @Transactional(readOnly = true)
@@ -63,7 +87,7 @@ public class BoardService {
         BoardEntity boardEntity=boardRepository.findById(n_id)
                 .orElseThrow(()->new IllegalArgumentException("not found not found"));
         boardEntity.update(dto.getTitle(),dto.getContent(),dto.getImage());
-        return boardEntity.getN_id();
+        return boardEntity.getNId();
     }
     @Transactional
     public void deleteBoard(Long n_id)

@@ -1,6 +1,7 @@
 package com.example.board_test.board.controller;
 
 
+import com.example.board_test.board.dto.request.BoardRegisterRequest;
 import com.example.board_test.board.dto.request.BoardRequestDTO;
 import com.example.board_test.board.dto.request.ImageRequestDTO;
 import com.example.board_test.board.dto.response.BoardResponseDTO;
@@ -20,14 +21,20 @@ public class BoardController {
     private final BoardService boardService;
     private final ImageService imageService;
 
-
-
     @PostMapping
-    public ResponseEntity<Long> createBoard(@RequestBody BoardRequestDTO boardRequestDTO, @RequestParam String nickname)
+    public ResponseEntity register(@RequestBody BoardRegisterRequest request)
     {
-        Long boardId= boardService.createBoard(boardRequestDTO,nickname);
-        return ResponseEntity.ok(boardId);
+        boardService.register(request);
+        return ResponseEntity.ok().build();
     }
+
+
+//    @PostMapping
+//    public ResponseEntity<Long> createBoard(@RequestBody BoardRequestDTO boardRequestDTO)
+//    {
+//        Long boardId= boardService.createBoard(boardRequestDTO);
+//        return ResponseEntity.ok(boardId);
+//    }
     @GetMapping("/{id}")
     public ResponseEntity<BoardResponseDTO> getBoardById(@PathVariable Long id)
     {

@@ -16,7 +16,7 @@ import lombok.*;
 public class ImageEntity extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long img_id;
+    private Long imgId;
 
     @Column(length = 255, nullable = false)
     private String image;

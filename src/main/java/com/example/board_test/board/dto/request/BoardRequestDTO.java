@@ -2,14 +2,14 @@ package com.example.board_test.board.dto.request;
 
 
 import com.example.board_test.board.entity.BoardEntity;
-import com.example.board_test.domain.member.entity.MemberEntity;
 import lombok.*;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Setter
+@Getter
 public class BoardRequestDTO {
     private Long n_id;
     private String content;
@@ -20,7 +20,7 @@ public class BoardRequestDTO {
     private String image;
     private boolean save;
     private int category;
-    private MemberEntity member;
+//    private MemberEntity member;
     private String siren;
 
     public BoardEntity toEntity()
@@ -36,7 +36,7 @@ public class BoardRequestDTO {
                         image(image).
                         save(save).
                         category(category).
-                        member(member).
+//                        member(member).
                         siren(siren).
 
                         build();

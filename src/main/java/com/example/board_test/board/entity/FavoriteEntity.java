@@ -15,7 +15,7 @@ import lombok.*;
 public class FavoriteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long fav_id;
+    private Long favId;
     @ManyToOne
     @JoinColumn(name = "user_key")
     private MemberEntity member;

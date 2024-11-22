@@ -15,7 +15,7 @@ public class HashTagEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long hash_id;
+    private Long hashId;
 
     @Column(nullable = false,unique = true)
     private String keyword;

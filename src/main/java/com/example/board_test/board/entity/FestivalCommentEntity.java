@@ -15,7 +15,7 @@ import lombok.*;
 public class FestivalCommentEntity extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long fc_id;
+    private Long fcId;
     @Column(length = 255)
     private String image;
     @Column(columnDefinition = "Text")

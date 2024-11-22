@@ -16,7 +16,7 @@ public class RecentlyViewEntity { //최근 본 게시글
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long r_id;
+    private Long rId;
 
     @ManyToOne
     @JoinColumn(name = "user_key", nullable = false)

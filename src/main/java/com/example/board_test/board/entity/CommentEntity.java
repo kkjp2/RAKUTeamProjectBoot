@@ -15,7 +15,7 @@ import lombok.*;
 public class CommentEntity extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long comment_id;
+    private Long commId;
 
     @Column(length = 255)
     private String image;
