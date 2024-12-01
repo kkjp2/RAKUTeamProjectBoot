@@ -51,11 +51,11 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(
                         authorize->
-                                authorize.requestMatchers("/api/users/membership","/api/auth/**","/move/**","/uploads/**").permitAll().
+                                authorize.requestMatchers("/api/users/membership","/api/auth/**","/move/company/**","/uploads/**","/move/**").permitAll().
                                         requestMatchers("/admin/**").hasAnyRole("ADMIN").
+                                        requestMatchers("/move/review/register").hasAnyRole("USER").
                                         anyRequest()
                                         .authenticated()
-
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtExceptionFilter, JwtAuthenticationFilter.class)

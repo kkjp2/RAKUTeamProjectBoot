@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class MoveReviewDTO {
     private Long reviewId;
-    private Long companyId;               // 与 Entity 中的类型一致
-    private Long userKey;                 // 修改为 Long，与 Entity 中的类型一致
+    private Long companyId;
+    private Long userKey;
     private String comment;
     private Long rating;
     private String price;
@@ -22,11 +22,5 @@ public class MoveReviewDTO {
     private LocalDate serviceDate;
     private LocalDateTime createdAt;
 
-    // 保留简化构造方法
-    public MoveReviewDTO(Long reviewId, String userId, String comment) {
-        this.reviewId = reviewId;
-        this.userKey = Long.parseLong(userId); // 将 userId 转为 Long 类型
-        this.comment = comment;
-    }
 }
 

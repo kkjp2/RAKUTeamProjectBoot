@@ -15,13 +15,12 @@ public class ReviewWithCompanyDTO {
     private String price;
     private LocalDate serviceDate;
     private String companyName;
-    private String companyLogo;
-    private Integer likeCount;
-    private int reactionValue;
+    private String fileName;
+    private String folderPath;
+    private String uuid;
 
-
-    // 构造函数
-    public ReviewWithCompanyDTO(Long reviewId, String comment, Long rating, String region, String price, LocalDate serviceDate, String companyName,String companyLogo,Integer likeCount, int reactionValue) {
+    public ReviewWithCompanyDTO(Long reviewId, String comment, Long rating, String region, String price, LocalDate serviceDate,
+                                String companyName, String fileName, String folderPath, String uuid) {
         this.reviewId = reviewId;
         this.comment = comment;
         this.rating = rating;
@@ -29,10 +28,8 @@ public class ReviewWithCompanyDTO {
         this.price = price;
         this.serviceDate = serviceDate;
         this.companyName = companyName;
-        this.companyLogo = companyLogo;
-        this.likeCount = likeCount;
-        this.reactionValue = reactionValue;
+        this.fileName = fileName;
+        this.folderPath = folderPath;
+        this.uuid = uuid;
     }
-
 }
-

@@ -3,6 +3,7 @@ package rakuproject.raku.domain.member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import rakuproject.raku.domain.member.entity.MemberEntity;
 import rakuproject.raku.domain.member.entity.enums.MemberRole;
@@ -18,12 +19,15 @@ public class MemberEntityTest {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Test
     void testInsertMembers() {
-        IntStream.rangeClosed(1, 100).forEach(i -> {
+        IntStream.rangeClosed(1, 30).forEach(i -> {
             MemberEntity memberEntity = MemberEntity.builder()
                     .id("user" + i + "@example.com")           // 设置用户名
-                    .pwd("1111")               // 设置密码
+                    .pwd(passwordEncoder.encode("1111"))              // 设置密码
                     .nick("USER" + i)          // 设置昵称
                     .address(100 + i)          // 示例地址
                     .role(MemberRole.USER)     // 假设角色为 USER
@@ -36,6 +40,7 @@ public class MemberEntityTest {
             memberRepository.save(memberEntity);
         });
     }
+
 
     @Test
     void batchUpdateMembersToEmailFormat() {

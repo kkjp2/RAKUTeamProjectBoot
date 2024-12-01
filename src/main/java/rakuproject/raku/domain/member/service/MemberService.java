@@ -3,10 +3,13 @@ package rakuproject.raku.domain.member.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import rakuproject.raku.domain.member.dto.MemberDTO;
 import rakuproject.raku.domain.member.entity.MemberEntity;
 import rakuproject.raku.domain.member.mapper.MemberMapper;
 import rakuproject.raku.domain.member.repository.MemberRepository;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -14,6 +17,7 @@ public class MemberService {
 
     private final MemberRepository memberRepositroy;
     private final PasswordEncoder passwordEncoder;
+    private final MemberRepository memberRepository;
 
 
     //회원 가입
@@ -28,4 +32,5 @@ public class MemberService {
         memberRepositroy.save(memberEntity);
         return memberEntity.getUserKey();
     }
+
 }

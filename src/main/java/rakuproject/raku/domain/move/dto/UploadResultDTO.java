@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UploadResultDTO {
-
-    private String fileName;    // 文件名
-    private String uuid;        // 唯一标识符
-    private String folderPath;  // 文件保存路径
+    private String fileName;    // 파일 이름
+    private String uuid;        // 유유
+    private String folderPath;  // 저장되는 파일 경로.
 }

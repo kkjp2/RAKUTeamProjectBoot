@@ -55,7 +55,6 @@ public class MoveCommentsTest {
             // 随机价格（1000到10000范围）
             dto.setPrice(String.valueOf((double) (random.nextInt(9000) + 1000))); // 转为 String
 
-
             // 随机地区（从 REGIONS 列表中选取）
             String region = REGIONS.get(random.nextInt(REGIONS.size()));
             dto.setRegion(region);

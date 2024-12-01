@@ -2,9 +2,7 @@ package rakuproject.raku.domain.move.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import rakuproject.raku.domain.member.entity.MemberEntity;
 
@@ -14,8 +12,10 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor // 保留无参构造函数
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "move_reviews")
 public class MoveReviewEntity {
     @Id
@@ -50,7 +50,6 @@ public class MoveReviewEntity {
     @Column(name = "review_created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
-
 
 }
 

@@ -14,7 +14,6 @@ import java.util.Optional;
 public interface MoveCompanyRepository extends JpaRepository<MoveCompanyEntity, Integer> {
     @Query("SELECT m FROM MoveCompanyEntity m WHERE m.moveCity LIKE %:city%")
     Page<MoveCompanyEntity> findByMoveCityContaining(@Param("city") String city, Pageable pageable);
-    public Optional<MoveCompanyEntity> findByBusinessNumber(String businessNumber);
 
 }
 

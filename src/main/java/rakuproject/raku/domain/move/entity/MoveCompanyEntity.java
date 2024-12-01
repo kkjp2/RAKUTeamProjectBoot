@@ -10,9 +10,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@Data
 @Entity
-@Table(name = "company_information")  // 确保表名正确
+@Table(name = "company_information")
 public class MoveCompanyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +44,7 @@ public class MoveCompanyEntity {
 
     @OneToOne
     @JoinColumn(name = "file_id", referencedColumnName = "file_id", foreignKey = @ForeignKey(name = "fk_upload_file"), nullable = true)
+    @JsonManagedReference
     private UploadFileEntity fileId;
 
     @OneToMany(mappedBy = "company") // 假设是映射

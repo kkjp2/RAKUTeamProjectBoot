@@ -23,17 +23,17 @@ public class ReviewReactionCountEntity {
 
     @OneToOne
     @JoinColumn(name = "review_id", referencedColumnName = "review_id", nullable = false)
-    private MoveReviewEntity reviewId; // 评论ID，外键关联到MoveReview
+    private MoveReviewEntity reviewId;
 
     @Column(name = "like_count", nullable = false)
-    private Integer likeCount = 0; // 点赞数量，初始为0
+    private Integer likeCount = 0; // 초기 설정 0
 
     @Column(name = "dislike_count", nullable = false)
-    private Integer dislikeCount = 0; // 点踩数量，初始为0
+    private Integer dislikeCount = 0; // 싫어요 초기설정 0
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now(); // 反应的创建时间
+    private LocalDateTime createdAt = LocalDateTime.now(); // 반응 시간 저장.
 
 }
 

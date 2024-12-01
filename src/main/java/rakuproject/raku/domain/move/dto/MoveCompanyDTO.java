@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MoveCompanyDTO {
-    private Integer id;  // 如果在创建时不需要 ID，则可以忽略该字段
+    private Integer id;
     private String name;
     private String ceo;
     private String phone;

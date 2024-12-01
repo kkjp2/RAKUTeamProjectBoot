@@ -23,7 +23,7 @@ public class ReactionEntity {
 
     @ManyToOne
     @JoinColumn(name = "review_id", referencedColumnName = "review_id", nullable = false)
-    private MoveReviewEntity reviewId; // 评论的ID，外键关联到MoveReview
+    private MoveReviewEntity reviewId;
 
     @ManyToOne
     @JoinColumn(name = "user_key", referencedColumnName = "user_key", nullable = false)
@@ -31,11 +31,10 @@ public class ReactionEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "reaction_type", nullable = false)
-    private ReactionType reactionType; // 反应类型，like 或 dislike
+    private ReactionType reactionType; //반응 타입이 like/dislike
 
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now(); // 反应的创建时间
-
+    private LocalDateTime createdAt = LocalDateTime.now(); // 반응 생성 된 시간
 
 }
 

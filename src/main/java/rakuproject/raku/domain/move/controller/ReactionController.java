@@ -1,71 +1,31 @@
 package rakuproject.raku.domain.move.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import rakuproject.raku.domain.member.dto.MemberDTO;
-import rakuproject.raku.domain.move.dto.ReactionCountResponse;
-import rakuproject.raku.domain.move.dto.ReactionDTO;
-import rakuproject.raku.domain.move.entity.ReactionEntity;
 import rakuproject.raku.domain.move.service.ReactionService;
-import rakuproject.raku.domain.move.service.ReviewReactionCountService;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/move/reactions")
+@RequiredArgsConstructor
 public class ReactionController {
 
     @Autowired
-    private ReactionService reactionService;
+    private final ReactionService reactionService;
 
-    @Autowired
-    private ReviewReactionCountService reviewReactionCountService;
-
-    @PostMapping("/{reviewId}/like")
-    public ResponseEntity<ReactionCountResponse> likeReview(@PathVariable Long reviewId, @RequestBody MemberDTO userRequest) {
-        reactionService.likeComment(reviewId, userRequest.getUserKey());
-        ReactionCountResponse updatedCounts = reviewReactionCountService.getReactionCount(reviewId,userRequest.getUserKey());
-        return ResponseEntity.ok(updatedCounts);
-    }
-
-    @PostMapping("/{reviewId}/dislike")
-    public ResponseEntity<ReactionCountResponse> dislikeReview(@PathVariable Long reviewId, @RequestBody MemberDTO userRequest) {
-        reactionService.dislikeComment(reviewId, userRequest.getUserKey());
-        ReactionCountResponse updatedCounts = reviewReactionCountService.getReactionCount(reviewId,userRequest.getUserKey());
-        return ResponseEntity.ok(updatedCounts);
-    }
-
-    @PostMapping("/{reviewId}/cancel")
-    public ResponseEntity<ReactionCountResponse> cancelReaction(
+    //http://localhost:8080/move/reactions/1?reactionType=like //or dislike
+    @PostMapping("/{reviewId}")
+    public ResponseEntity<String> reactToReview(
             @PathVariable Long reviewId,
-            @RequestParam(required = false) Long userKey,
-            @RequestBody(required = false) Map<String, Long> body) {
+            @RequestParam String reactionType,
+            Authentication authentication) {
+        // 从 SecurityContext 中获取用户的 userKey
+        String userKey = authentication.getName();
 
-        if (userKey == null && body != null) {
-            userKey = body.get("userKey");
-        }
-        if (userKey == null) {
-            throw new RuntimeException("userKey is required");
-        }
+        reactionService.reactToReview(reviewId, userKey, reactionType);
 
-        ReactionCountResponse response = reactionService.cancelReaction(reviewId, userKey);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok("반응이 성공적으로 기록되었습니다.");
     }
-
-
-    @GetMapping("/{reviewId}/reaction")
-    public ResponseEntity<ReactionDTO> getUserReaction(
-            @PathVariable Long reviewId,
-            @RequestParam Long userKey) {
-        ReactionEntity reaction = reactionService.getReactionByUserAndReview(userKey, reviewId);
-        if (reaction != null) {
-            return ResponseEntity.ok(new ReactionDTO(reviewId, reaction.getReactionType()));
-        } else {
-            return ResponseEntity.ok(new ReactionDTO(reviewId, null)); // 没有反应
-        }
-    }
-
-
-
 }

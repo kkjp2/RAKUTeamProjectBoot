@@ -1,5 +1,6 @@
 package rakuproject.raku.domain.move.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,22 +18,23 @@ public class UploadFileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "file_id")
-    private Long id;  // 文件记录ID（主键）
+    private Long id;
 
     @Column(name = "file_name")
-    private String fileName;  // 文件名
+    private String fileName;
 
     @Column(name = "uuid")
-    private String uuid;  // 唯一标识符
+    private String uuid;
 
     @Column(name = "folder_path")
-    private String folderPath;  // 文件保存路径
+    private String folderPath;  // 저장되는 파일 경로.
 
     @Column(name = "upload_date")
-    private LocalDate uploadDate;  // 上传日期
+    private LocalDate uploadDate;  // 올린 날.
 
     @ManyToOne
     @JoinColumn(name = "company_id", referencedColumnName = "company_id", foreignKey = @ForeignKey(name = "fk_company_information"), nullable = true)
+    @JsonBackReference
     private MoveCompanyEntity companyId;
 
 }

@@ -52,7 +52,7 @@ public class MoveCompanyRepositoryTest {
         List<String> services = Arrays.asList("梱包サービス", "清掃サービス", "保管サービス", "ピアノ運搬", "家具組み立て", "安全設置");
 
         Random random = new Random();
-        IntStream.rangeClosed(3, 30).forEach(i -> {
+        IntStream.rangeClosed(1, 30).forEach(i -> {
             // 随机选择地区和服务
             String selectedRegions = getRandomSelection(japanRegions, random, 5, 10);
             String selectedServices = getRandomSelection(services, random, 4, 7);
