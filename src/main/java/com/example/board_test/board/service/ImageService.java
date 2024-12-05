@@ -61,7 +61,7 @@ public class ImageService {
             image.setFestivalBoard(festivalBoard);
         }
         imageRepository.save(image);
-        return image.getImg_id();
+        return image.getImgId();
     }
 
 

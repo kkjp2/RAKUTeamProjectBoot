@@ -50,9 +50,9 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(
                         authorize->
-                                authorize.requestMatchers("/api/users/**","/api/auth/**").permitAll().
+                                authorize.requestMatchers("/api/users/**","/api/auth/**","/board/**").permitAll().
                                         requestMatchers("/admin/**").hasAnyRole("ADMIN").
-                                        requestMatchers("/board/**").hasAnyRole("USER").
+                                        requestMatchers("/user/**").hasAnyRole("USER").
                                         anyRequest()
                                         .authenticated()
 

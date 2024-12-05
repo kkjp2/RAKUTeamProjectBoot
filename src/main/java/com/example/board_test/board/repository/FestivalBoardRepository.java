@@ -13,18 +13,18 @@ public interface FestivalBoardRepository extends JpaRepository<FestivalBoardEnti
 
     @Modifying
     @Transactional
-    @Query("UPDATE FestivalBoardEntity f SET f.likeCnt= f.likeCnt+1 WHERE f.f_id= :fId AND f.member = :member")
-    void Like(@Param("fId") Long fId, @Param("member") MemberEntity member);
+    @Query("UPDATE FestivalBoardEntity f SET f.likeCnt= f.likeCnt+1 WHERE f.fbId= :fbId AND f.member = :member")
+    void Like(@Param("fbId") Long fbId, @Param("member") MemberEntity member);
 
     @Modifying
     @Transactional
-    @Query("UPDATE FestivalBoardEntity f SET f.viewCnt=f.viewCnt +1 WHERE f.f_id = :fId")
-    void View(@Param("fId") Long fId);
+    @Query("UPDATE FestivalBoardEntity f SET f.viewCnt=f.viewCnt +1 WHERE f.fbId = :fbId")
+    void View(@Param("fbId") Long fbId);
 
     @Modifying
     @Transactional
-    @Query("UPDATE FestivalBoardEntity f SET f.likeCnt=:like, f.viewCnt=:view WHERE f.f_id= :fId")
-    void updateBoardStats(@Param("fId") Long fId,
+    @Query("UPDATE FestivalBoardEntity f SET f.likeCnt=:like, f.viewCnt=:view WHERE f.fbId= :fbId")
+    void updateBoardStats(@Param("fbId") Long fbId,
                           @Param("like") int like,
                           @Param("view") int view
     );

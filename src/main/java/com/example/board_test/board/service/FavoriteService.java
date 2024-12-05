@@ -46,7 +46,7 @@ public class FavoriteService {
                 .board(board)
                 .build();
         favoriteRepository.save(favorite);
-        return favorite.getFav_id();
+        return favorite.getFavId();
     }
 
     @Transactional

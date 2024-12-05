@@ -3,28 +3,29 @@ package com.example.board_test.board.dto.response;
 
 import com.example.board_test.board.entity.BoardEntity;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@NoArgsConstructor
 public class BoardResponseDTO {
-    private final Long n_id;
-    private final String content;
-    private final int like;
-    private final String title;
-    private final int dislike;
-    private final int view;
-    private final String image;
-    private final String member;
-    private final String createdDate,modifiedDate;
-    private final String siren;
-    private final List<CommentResponseDTO> comments;
+    private  Long n_id;
+    private  String content;
+    private  int like;
+    private  String title;
+    private  int dislike;
+    private  int view;
+    private  String image;
+    private  String member;
+    private  String createdDate,modifiedDate;
+    private  List<CommentResponseDTO> comments;
 
 
     public BoardResponseDTO(BoardEntity board)
     {
-        this.n_id=board.getN_id();
+        this.n_id=board.getNId();
         this.content=board.getContent();
         this.title=board.getTitle();
         this.like=board.getLikeCnt();
@@ -34,7 +35,6 @@ public class BoardResponseDTO {
         this.image=board.getImage();
         this.createdDate=board.getCreatedDate();
         this.modifiedDate=board.getModifiedDate();
-        this.siren=board.getSiren();
         this.comments = board.getCommentList().stream().map(CommentResponseDTO::new).collect(Collectors.toList());
     }
 

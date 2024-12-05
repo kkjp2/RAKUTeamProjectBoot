@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberDTO {
-    private Long user_key;
+    private Long userKey;
     private String id;
     private String pwd;
     private String nick;

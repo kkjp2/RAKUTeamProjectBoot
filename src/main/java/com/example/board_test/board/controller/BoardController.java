@@ -2,7 +2,6 @@ package com.example.board_test.board.controller;
 
 
 import com.example.board_test.board.dto.request.BoardRegisterRequest;
-import com.example.board_test.board.dto.request.BoardRequestDTO;
 import com.example.board_test.board.dto.request.ImageRequestDTO;
 import com.example.board_test.board.dto.response.BoardResponseDTO;
 import com.example.board_test.board.service.BoardService;
@@ -27,20 +26,22 @@ public class BoardController {
         boardService.register(request);
         return ResponseEntity.ok().build();
     }
-
-
-//    @PostMapping
-//    public ResponseEntity<Long> createBoard(@RequestBody BoardRequestDTO boardRequestDTO)
-//    {
-//        Long boardId= boardService.createBoard(boardRequestDTO);
-//        return ResponseEntity.ok(boardId);
-//    }
     @GetMapping("/{id}")
-    public ResponseEntity<BoardResponseDTO> getBoardById(@PathVariable Long id)
+    public ResponseEntity findBoardById(@PathVariable("id") Long id)
     {
         BoardResponseDTO board=boardService.findById(id);
         return ResponseEntity.ok(board);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity updateBoard(@PathVariable("id") Long id, @RequestBody BoardRegisterRequest request)
+    {
+        request.setId(id);
+        boardService.update(request);
+        return ResponseEntity.ok().build();
+    }
+
+
 
     @GetMapping
     public ResponseEntity<List<BoardResponseDTO>> getAllBoards()
@@ -49,15 +50,9 @@ public class BoardController {
         return ResponseEntity.ok(boards);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Long> updateBoard(@PathVariable Long id, @RequestBody BoardRequestDTO boardRequestDTO)
-    {
-        Long updateBoardId= boardService.updateBoard(id, boardRequestDTO);
-        return ResponseEntity.ok(updateBoardId);
-    }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBoard(@PathVariable Long id)
+    public ResponseEntity<Void> deleteBoard(@PathVariable("id") Long id)
     {
         boardService.deleteBoard(id);
         return ResponseEntity.noContent().build();

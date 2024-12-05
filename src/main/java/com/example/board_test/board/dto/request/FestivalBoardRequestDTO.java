@@ -26,7 +26,7 @@ public class FestivalBoardRequestDTO {
     {
         FestivalBoardEntity festivals=
                 FestivalBoardEntity.builder().
-                        f_id(f_id).
+                        fbId(f_id).
                         title(title).
                         image(image).
                         likeCnt(0).

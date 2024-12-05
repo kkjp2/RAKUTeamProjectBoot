@@ -13,7 +13,7 @@ public class HashTagResponseDTO {
 
     public HashTagResponseDTO(HashTagEntity hashTag)
     {
-        this.hash_id=hashTag.getHash_id();
+        this.hash_id=hashTag.getHashId();
         this.keyword=hashTag.getKeyword();
 
     }

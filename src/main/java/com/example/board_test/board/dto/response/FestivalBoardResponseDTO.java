@@ -21,7 +21,7 @@ public class FestivalBoardResponseDTO {
 
     public FestivalBoardResponseDTO(FestivalBoardEntity festivalBoard)
     {
-        this.f_id=festivalBoard.getF_id();
+        this.f_id=festivalBoard.getFbId();
         this.title=festivalBoard.getTitle();
         this.image=festivalBoard.getImage();
         this.content= festivalBoard.getContent();

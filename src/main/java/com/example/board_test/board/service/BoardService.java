@@ -2,7 +2,6 @@ package com.example.board_test.board.service;
 
 
 import com.example.board_test.board.dto.request.BoardRegisterRequest;
-import com.example.board_test.board.dto.request.BoardRequestDTO;
 import com.example.board_test.board.dto.response.BoardResponseDTO;
 import com.example.board_test.board.entity.BoardEntity;
 import com.example.board_test.board.repository.BoardRepository;
@@ -39,6 +38,7 @@ public class BoardService {
     public void register(BoardRegisterRequest request){
         MemberDTO memberDTO = memberSecurity.getMember();
         MemberEntity memberEntity = MemberMapper.createEntity(memberDTO);
+
         BoardEntity boardEntity = BoardEntity.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
@@ -50,28 +50,41 @@ public class BoardService {
                 ).build();
         boardRepository.save(boardEntity);
     }
-
-//    @Transactional
-//    public Long createBoard(BoardRequestDTO boardRequestDTO)
-//    {
-////        MemberEntity member=memberRepository.findById(nickname)
-////                .orElseThrow(()->new IllegalArgumentException("Warning!!!!Warning!!!!!!"));
-////        MemberDTO memberDTO = memberSecurity.getMember();
-////        boardRequestDTO.setMember(member);
-////        BoardEntity boardEntity=boardRequestDTO.toEntity();
-////        boardRepository.save(boardEntity);
-////        return boardEntity.getN_id();
-//    }
-
     //게시물 조회
     @Transactional(readOnly = true)
-    public BoardResponseDTO findById(Long n_id)
+    public BoardResponseDTO findById(Long id)
     {
-        BoardEntity board= boardRepository.findById(n_id)
+        BoardEntity board= boardRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("게시글을 찾을수없거나 삭제되었습니다:("));
-        boardRepository.View(n_id);
         return new BoardResponseDTO(board);
     }
+
+//    @Transactional
+//    public Long updateBoard(Long n_id, BoardRequestDTO dto)
+//    {
+//        BoardEntity boardEntity=boardRepository.findById(n_id)
+//                .orElseThrow(()->new IllegalArgumentException("not found not found"));
+//        boardEntity.update(dto.getTitle(),dto.getContent(),dto.getImage());
+//        return boardEntity.getNId();
+//    }
+
+
+    //업데이트
+    @Transactional
+    public void update(BoardRegisterRequest request)
+    {
+        MemberDTO memberDTO=memberSecurity.getMember();
+        MemberEntity memberEntity= MemberMapper.createEntity(memberDTO);
+        BoardEntity boardEntity=boardRepository.findById(request.getId())
+                .orElseThrow(()-> new IllegalArgumentException("not found"));
+//        BoardEntity boardEntity= BoardEntity.builder().title(request.getTitle())
+//            .content(request.getContent())
+//            .image(request.getImage()).
+//                build();
+        boardEntity.update(request.getTitle(), request.getContent(), request.getImage());
+    }
+
+
     //게시물 리스트
     public List<BoardResponseDTO> getAllBoards()
     {
@@ -81,14 +94,7 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
-    public Long updateBoard(Long n_id, BoardRequestDTO dto)
-    {
-        BoardEntity boardEntity=boardRepository.findById(n_id)
-                .orElseThrow(()->new IllegalArgumentException("not found not found"));
-        boardEntity.update(dto.getTitle(),dto.getContent(),dto.getImage());
-        return boardEntity.getNId();
-    }
+
     @Transactional
     public void deleteBoard(Long n_id)
     {

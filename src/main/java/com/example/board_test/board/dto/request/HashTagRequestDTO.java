@@ -20,7 +20,7 @@ public class HashTagRequestDTO {
     {
         HashTagEntity hashTags=
                 HashTagEntity.builder().
-                        hash_id(hash_id).
+                        hashId(hash_id).
                         keyword(keyword).
                         count(0).
                         build();

@@ -47,12 +47,12 @@ public class BoardEntity extends TimeEntity {
     private String siren;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_key", nullable = false)
+    @JoinColumn(name = "userKey", nullable = false)
     private MemberEntity member;
 
 
     @OneToMany(mappedBy = "board",fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @OrderBy("comment_id asc")
+    @OrderBy("comm_id asc")
     private List<CommentEntity> commentList;
 
     public void update(String title, String content,String image)

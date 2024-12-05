@@ -31,7 +31,7 @@ public class QFestivalBoardEntity extends EntityPathBase<FestivalBoardEntity> {
     //inherited
     public final StringPath createdDate = _super.createdDate;
 
-    public final NumberPath<Long> f_id = createNumber("f_id", Long.class);
+    public final NumberPath<Long> fbId = createNumber("fbId", Long.class);
 
     public final ListPath<FestivalCommentEntity, QFestivalCommentEntity> festivalComments = this.<FestivalCommentEntity, QFestivalCommentEntity>createList("festivalComments", FestivalCommentEntity.class, QFestivalCommentEntity.class, PathInits.DIRECT2);
 

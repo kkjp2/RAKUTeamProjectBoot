@@ -39,7 +39,7 @@ public class QMemberEntity extends EntityPathBase<MemberEntity> {
 
     public final EnumPath<com.example.board_test.domain.member.entity.enums.MemberRole> role = createEnum("role", com.example.board_test.domain.member.entity.enums.MemberRole.class);
 
-    public final NumberPath<Long> user_key = createNumber("user_key", Long.class);
+    public final NumberPath<Long> userKey = createNumber("userKey", Long.class);
 
     public QMemberEntity(String variable) {
         super(MemberEntity.class, forVariable(variable));

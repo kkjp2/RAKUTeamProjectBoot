@@ -33,7 +33,7 @@ public class QImageEntity extends EntityPathBase<ImageEntity> {
 
     public final StringPath image = createString("image");
 
-    public final NumberPath<Long> img_id = createNumber("img_id", Long.class);
+    public final NumberPath<Long> imgId = createNumber("imgId", Long.class);
 
     public final com.example.board_test.domain.member.entity.QMemberEntity member;
 

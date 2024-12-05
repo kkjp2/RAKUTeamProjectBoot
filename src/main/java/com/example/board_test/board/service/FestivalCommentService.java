@@ -42,7 +42,7 @@ public class FestivalCommentService {
         festivalCommentRequestDTO.setFestivalBoard(festivalBoard);
         FestivalCommentEntity festivalComment=festivalCommentRequestDTO.toEntity();
         festivalCommentRepository.save(festivalComment);
-        return festivalComment.getFc_id();
+        return festivalComment.getFcId();
     }
 
     @Transactional(readOnly = true)

@@ -24,7 +24,7 @@ public class QFavoriteEntity extends EntityPathBase<FavoriteEntity> {
 
     public final QBoardEntity board;
 
-    public final NumberPath<Long> fav_id = createNumber("fav_id", Long.class);
+    public final NumberPath<Long> favId = createNumber("favId", Long.class);
 
     public final QFestivalBoardEntity festivalBoard;
 

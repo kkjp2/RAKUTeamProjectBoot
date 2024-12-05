@@ -13,11 +13,11 @@ public class ImageResponseDTO {
 
     public ImageResponseDTO(ImageEntity image)
     {
-        this.imgId=image.getImg_id();
+        this.imgId=image.getImgId();
         this.image=image.getImage();
-        this.userId=image.getMember().getUser_key();
-        this.boardId=image.getBoard().getN_id();
-        this.festivalBoardId=image.getFestivalBoard().getF_id();
+        this.userId=image.getMember().getUserKey();
+        this.boardId=image.getBoard().getNId();
+        this.festivalBoardId=image.getFestivalBoard().getFbId();
     }
 
 

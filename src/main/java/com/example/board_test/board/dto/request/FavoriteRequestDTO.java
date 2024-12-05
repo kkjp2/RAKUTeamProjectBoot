@@ -24,7 +24,7 @@ public class FavoriteRequestDTO {
     {
         FavoriteEntity favorites=
                 FavoriteEntity.builder().
-                        fav_id(fav_id).
+                        favId(fav_id).
                         member(memberId).
                         board(boardId).
                         festivalBoard(festivalBoardId).

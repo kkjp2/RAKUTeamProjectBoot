@@ -25,7 +25,7 @@ public class CommentRequestDTO {
     {
         CommentEntity comments=
                 CommentEntity.builder().
-                        comment_id(comment_id).
+                        commId(comment_id).
                         image(image).
                         commentText(commentText).
                         siren(siren).

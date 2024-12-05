@@ -21,7 +21,7 @@ public class QHashTagEntity extends EntityPathBase<HashTagEntity> {
 
     public final NumberPath<Integer> count = createNumber("count", Integer.class);
 
-    public final NumberPath<Long> hash_id = createNumber("hash_id", Long.class);
+    public final NumberPath<Long> hashId = createNumber("hashId", Long.class);
 
     public final StringPath keyword = createString("keyword");
 

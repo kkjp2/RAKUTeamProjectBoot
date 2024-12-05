@@ -40,7 +40,7 @@ public class FestivalBoardService {
         festivalBoardRequestDTO.setMember(member);
         FestivalBoardEntity festivalBoard=festivalBoardRequestDTO.toEntity();
         festivalBoardRepository.save(festivalBoard);
-        return festivalBoard.getF_id();
+        return festivalBoard.getFbId();
     }
 
     @Transactional(readOnly = true)
@@ -72,7 +72,7 @@ public class FestivalBoardService {
         FestivalBoardEntity festivalBoard=festivalBoardRepository.findById(f_id)
                 .orElseThrow(()-> new IllegalArgumentException("음..못찾겠당.."));
         festivalBoard.update(festivalBoardRequestDTO.getTitle(),festivalBoardRequestDTO.getContent(),festivalBoardRequestDTO.getImage());
-        return festivalBoard.getF_id();
+        return festivalBoard.getFbId();
     }
 
     @Transactional

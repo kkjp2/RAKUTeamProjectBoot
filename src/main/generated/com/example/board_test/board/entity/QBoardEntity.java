@@ -44,7 +44,7 @@ public class QBoardEntity extends EntityPathBase<BoardEntity> {
     //inherited
     public final StringPath modifiedDate = _super.modifiedDate;
 
-    public final NumberPath<Long> n_id = createNumber("n_id", Long.class);
+    public final NumberPath<Long> nId = createNumber("nId", Long.class);
 
     public final BooleanPath save = createBoolean("save");
 

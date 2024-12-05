@@ -17,13 +17,13 @@ public class FavoriteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long favId;
     @ManyToOne
-    @JoinColumn(name = "user_key")
+    @JoinColumn(name = "userKey")
     private MemberEntity member;
     @ManyToOne
-    @JoinColumn(name = "n_id")
+    @JoinColumn(name = "nId")
     private BoardEntity board;
     @ManyToOne
-    @JoinColumn(name = "f_id")
+    @JoinColumn(name = "fbId")
     private FestivalBoardEntity festivalBoard;
 
 

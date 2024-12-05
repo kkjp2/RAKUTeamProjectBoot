@@ -25,11 +25,11 @@ public class CommentEntity extends TimeEntity {
     private String siren;
 
     @ManyToOne
-    @JoinColumn(name = "n_id")
+    @JoinColumn(name = "nId")
     private BoardEntity board;
 
     @ManyToOne
-    @JoinColumn(name = "user_key")
+    @JoinColumn(name = "userKey")
     private MemberEntity member;
 
     public void update(String commentText, String image){

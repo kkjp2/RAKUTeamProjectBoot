@@ -24,7 +24,7 @@ public class FestivalCommentRequestDTO {
     {
         FestivalCommentEntity festivalComments=
                 FestivalCommentEntity.builder().
-                        fc_id(fc_id).
+                        fcId(fc_id).
                         image(image).
                         comment(comment).
                         siren(siren).

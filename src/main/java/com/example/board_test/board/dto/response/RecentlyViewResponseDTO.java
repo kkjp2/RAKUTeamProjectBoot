@@ -13,10 +13,10 @@ public class RecentlyViewResponseDTO {
 
     public RecentlyViewResponseDTO(RecentlyViewEntity recentlyView)
     {
-        this.r_id= recentlyView.getR_id();
-        this.u_id=recentlyView.getMember().getUser_key();
-        this.b_id=recentlyView.getBoard().getN_id();
-        this.f_id=recentlyView.getFestivalBoard().getF_id();
+        this.r_id= recentlyView.getRId();
+        this.u_id=recentlyView.getMember().getUserKey();
+        this.b_id=recentlyView.getBoard().getNId();
+        this.f_id=recentlyView.getFestivalBoard().getFbId();
 
     }
 

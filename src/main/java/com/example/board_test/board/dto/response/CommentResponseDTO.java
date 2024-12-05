@@ -16,12 +16,12 @@ public class CommentResponseDTO {
 
     public CommentResponseDTO(CommentEntity comment)
     {
-        this.comment_id=comment.getComment_id();
+        this.comment_id=comment.getCommId();
         this.image=comment.getImage();
         this.commentText=comment.getCommentText();
         this.siren=comment.getSiren();
         this.nickname=comment.getMember().getNick();
-        this.board_id=comment.getBoard().getN_id();
+        this.board_id=comment.getBoard().getNId();
         this.createdDate=comment.getCreatedDate();
         this.modifiedDate=comment.getModifiedDate();
     }

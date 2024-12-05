@@ -16,12 +16,12 @@ public class FestivalCommentResponseDTO {
 
     public FestivalCommentResponseDTO(FestivalCommentEntity festivalComment)
     {
-        this.fc_id=festivalComment.getFc_id();
+        this.fc_id=festivalComment.getFcId();
         this.image=festivalComment.getImage();
         this.comment= festivalComment.getComment();
         this.siren= festivalComment.getSiren();
         this.nickname=festivalComment.getMember().getNick();
-        this.festival_id=festivalComment.getFestivalBoard().getF_id();
+        this.festival_id=festivalComment.getFestivalBoard().getFbId();
         this.createdDate=festivalComment.getCreatedDate();
         this.modifiedDate=festivalComment.getModifiedDate();
     }

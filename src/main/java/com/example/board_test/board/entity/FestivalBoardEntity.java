@@ -13,8 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@ToString
 public class FestivalBoardEntity extends TimeEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fbId;
@@ -38,7 +38,7 @@ public class FestivalBoardEntity extends TimeEntity {
     private int category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_key")
+    @JoinColumn(name = "userKey",nullable = false)
     private MemberEntity member;
 
 

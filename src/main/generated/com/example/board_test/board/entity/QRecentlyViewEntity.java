@@ -28,7 +28,7 @@ public class QRecentlyViewEntity extends EntityPathBase<RecentlyViewEntity> {
 
     public final com.example.board_test.domain.member.entity.QMemberEntity member;
 
-    public final NumberPath<Long> r_id = createNumber("r_id", Long.class);
+    public final NumberPath<Long> rId = createNumber("rId", Long.class);
 
     public QRecentlyViewEntity(String variable) {
         this(RecentlyViewEntity.class, forVariable(variable), INITS);

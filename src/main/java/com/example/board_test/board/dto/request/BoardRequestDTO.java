@@ -27,7 +27,7 @@ public class BoardRequestDTO {
     {
         BoardEntity boards=
                 BoardEntity.builder().
-                        n_id(n_id).
+                        nId(n_id).
                         content(content).
                         title(title).
                         likeCnt(0).

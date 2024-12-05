@@ -29,7 +29,7 @@ public class QFestivalCommentEntity extends EntityPathBase<FestivalCommentEntity
     //inherited
     public final StringPath createdDate = _super.createdDate;
 
-    public final NumberPath<Long> fc_id = createNumber("fc_id", Long.class);
+    public final NumberPath<Long> fcId = createNumber("fcId", Long.class);
 
     public final QFestivalBoardEntity festivalBoard;
 

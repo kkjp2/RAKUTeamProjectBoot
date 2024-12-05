@@ -19,15 +19,15 @@ public class RecentlyViewEntity { //최근 본 게시글
     private Long rId;
 
     @ManyToOne
-    @JoinColumn(name = "user_key", nullable = false)
+    @JoinColumn(name = "userKey", nullable = false)
     private MemberEntity member;
 
     @ManyToOne
-    @JoinColumn(name = "n_id", nullable = false)
+    @JoinColumn(name = "nId", nullable = false)
     private BoardEntity board;
 
     @ManyToOne
-    @JoinColumn(name = "f_id",nullable = false)
+    @JoinColumn(name = "fbId",nullable = false)
     private FestivalBoardEntity festivalBoard;
 
 

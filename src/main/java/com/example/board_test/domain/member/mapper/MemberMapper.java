@@ -12,7 +12,7 @@ public class MemberMapper {
 
 
         return   MemberEntity.builder()
-                .userKey(memberDTO.getUser_key())
+                .userKey(memberDTO.getUserKey())
                 .id(memberDTO.getId())
                 .pwd(memberDTO.getPwd())
                 .nick(memberDTO.getNick())
@@ -26,7 +26,7 @@ public class MemberMapper {
 
     public static MemberDTO createDTO(MemberEntity memberEntity){
         return MemberDTO.builder()
-                .user_key(memberEntity.getUserKey())
+                .userKey(memberEntity.getUserKey())
                 .id(memberEntity.getId())
                 .pwd(memberEntity.getPwd())
                 .nick(memberEntity.getNick())

@@ -24,11 +24,11 @@ public class FestivalCommentEntity extends TimeEntity {
     private String siren;
 
     @ManyToOne
-    @JoinColumn(name = "f_id")
+    @JoinColumn(name = "fbId")
     private FestivalBoardEntity festivalBoard;
 
     @ManyToOne
-    @JoinColumn(name = "user_key")
+    @JoinColumn(name = "userKey")
     private MemberEntity member;
 
     public void update(String comment, String image)

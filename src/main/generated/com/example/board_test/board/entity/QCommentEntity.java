@@ -26,9 +26,9 @@ public class QCommentEntity extends EntityPathBase<CommentEntity> {
 
     public final QBoardEntity board;
 
-    public final NumberPath<Long> comment_id = createNumber("comment_id", Long.class);
-
     public final StringPath commentText = createString("commentText");
+
+    public final NumberPath<Long> commId = createNumber("commId", Long.class);
 
     //inherited
     public final StringPath createdDate = _super.createdDate;
