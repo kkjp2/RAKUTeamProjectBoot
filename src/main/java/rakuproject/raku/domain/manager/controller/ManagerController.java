@@ -48,4 +48,15 @@ public class ManagerController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    //사용자를 관리자로 설정
+    @PutMapping("/setUserAsAdmin")
+    public ResponseEntity<?> setUserAsAdmin(@RequestParam String id){
+        try {
+            MemberEntity updatedMember = managerService.setUserAsAdmin(id);
+            return ResponseEntity.ok(updatedMember);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
