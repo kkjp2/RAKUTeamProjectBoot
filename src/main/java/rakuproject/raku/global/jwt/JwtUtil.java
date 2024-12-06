@@ -73,7 +73,8 @@ public class JwtUtil {
 
     public String getUserIdFromToken(String token) {
         Claims claims = getClaims(token);
-        return claims.get("id", String.class); // 클레임 키가 'userId' 라면
+        System.out.println("Claims: " + claims); // 클레임 전체 출력
+        return claims.getSubject(); // 클레임 키가 'userId' 라면
     }
 
     //사용자 인증
