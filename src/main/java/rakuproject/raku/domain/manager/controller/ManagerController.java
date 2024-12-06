@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import rakuproject.raku.domain.manager.service.ManagerService;
 import rakuproject.raku.domain.member.entity.MemberEntity;
+import rakuproject.raku.domain.member.entity.enums.MemberRole;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/manager")
+@RequestMapping("/admin/manager")
 public class ManagerController {
     @Autowired
     private ManagerService managerService;
@@ -29,6 +30,12 @@ public class ManagerController {
     @GetMapping("/searchByNickname")
     public ResponseEntity<List<MemberEntity>> searchByNickname(@RequestParam String nickname){
         List<MemberEntity> members = managerService.searchByNickname(nickname);
+        return members.isEmpty()?ResponseEntity.notFound().build():ResponseEntity.ok(members);
+    }
+
+    @GetMapping("/searchByRole")
+    public ResponseEntity<List<MemberEntity>> searchByRole(@RequestParam MemberRole role){
+        List<MemberEntity> members = managerService.searchByRole(role);
         return members.isEmpty()?ResponseEntity.notFound().build():ResponseEntity.ok(members);
     }
 }
