@@ -24,9 +24,9 @@ public class MemberService {
         memberDTO.setPwd(encodedPassword);
 
         MemberEntity memberEntity = MemberMapper.createEntity(memberDTO);
-
         // 회원 정보 저장
         memberRepositroy.save(memberEntity);
         return memberEntity.getUserKey();
     }
+
 }

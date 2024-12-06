@@ -3,8 +3,11 @@ package com.example.board_test.board.dto.response;
 
 import com.example.board_test.board.entity.CommentEntity;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
+
 public class CommentResponseDTO {
     private final Long comment_id;
     private final String image;

@@ -1,5 +1,6 @@
 package com.example.board_test.board.service;
 
+import com.example.board_test.board.dto.request.CommentDTO;
 import com.example.board_test.board.dto.request.CommentRequestDTO;
 import com.example.board_test.board.dto.response.CommentResponseDTO;
 import com.example.board_test.board.entity.BoardEntity;
@@ -33,55 +34,57 @@ public class CommentService {
     @Autowired
     private final MemberSecurity memberSecurity;
 
-    
-    //댓글 작성
-//    @Transactional
-//    public Long createComment(CommentRequestDTO commentRequestDTO, String nickname, Long id)
-//    {
-//        MemberEntity member=memberRepository.findById(nickname)
-//                .orElseThrow(()-> new IllegalArgumentException("댓글 실패"));
-//        commentRequestDTO.setMember(member);
-//        BoardEntity board=boardRepository.findById(id).orElseThrow(
-//                ()->new IllegalArgumentException("not found board"));
-//        commentRequestDTO.setBoard(board);
-//        CommentEntity comment=commentRequestDTO.toEntity();
-//        commentRepository.save(comment);
-//        return comment.getCommId();
-//    }
+
     @Transactional
     public void register(CommentRequestDTO commentRequestDTO, Long id)
     {
         MemberDTO memberDTO=memberSecurity.getMember();
         MemberEntity memberEntity= MemberMapper.createEntity(memberDTO);
 
+        BoardEntity board=boardRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("not board"));
 
         CommentEntity commentEntity= CommentEntity.builder().
                 commentText(commentRequestDTO.getCommentText()).
                 image(commentRequestDTO.getImage()).
+                board(board).
                 member(memberEntity).
                 build();
         commentRepository.save(commentEntity);
     }
 
-    //댓글 목록
-    @Transactional(readOnly = true)
-    public List<CommentResponseDTO> findById(Long c_id)
+    @Transactional
+    public void update(CommentRequestDTO commentRequestDTO)
     {
-        BoardEntity board=boardRepository.findById(c_id)
-                .orElseThrow(()->new IllegalArgumentException("この投稿が見つからないか、削除されました"));
-        List<CommentEntity> comments=board.getCommentList();
-        return comments.stream().map(CommentResponseDTO::new).collect(Collectors.toList());
+        MemberDTO memberDTO=memberSecurity.getMember();
+        MemberEntity memberEntity=MemberMapper.createEntity(memberDTO);
+        CommentEntity comment=commentRepository.findById(commentRequestDTO.getComment_id())
+                .orElseThrow(()->new IllegalArgumentException("not found"));
+        comment.update(commentRequestDTO.getCommentText(),commentRequestDTO.getImage());
+
     }
 
-    @Transactional
-    public Long updateComment(Long c_id,Long n_id, CommentRequestDTO commentRequestDTO)
+    //댓글 목록
+    @Transactional(readOnly = true)
+    public CommentResponseDTO findById(Long c_id)
     {
-        return null;
-//        CommentEntity comment=commentRepository.findByBoard_n_idAndComment_id(n_id,c_id)
-//                .orElseThrow(()-> new IllegalArgumentException("alhamdulila "));
-//        comment.update(commentRequestDTO.getCommentText(),commentRequestDTO.getImage());
-//        return comment.getComment_id();
+        CommentEntity comments=commentRepository.findById(c_id)
+                .orElseThrow(()-> new IllegalArgumentException("not found"));
+        return new CommentResponseDTO(comments);
     }
+
+
+    public List<CommentDTO> getCommentByBoardId(Long cid)
+    {
+        List<CommentEntity> comments=commentRepository.findByBoard_nId(cid);
+        return comments.stream()
+                .map(comment -> new CommentDTO(
+                        comment.getCommId(),comment.getCommentText()
+                        ))
+                .collect(Collectors.toList());
+    }
+
+
 
     @Transactional
     public void deleteComment(Long c_id)
