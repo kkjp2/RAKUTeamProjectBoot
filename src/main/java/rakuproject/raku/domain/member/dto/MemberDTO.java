@@ -10,7 +10,6 @@ import rakuproject.raku.domain.member.entity.enums.MemberRole;
 @Getter
 @Setter
 public class MemberDTO {
-    private Long user_key;
     private String id;
     private String pwd;
     private String nick;

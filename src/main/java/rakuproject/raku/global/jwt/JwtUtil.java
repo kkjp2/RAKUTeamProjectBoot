@@ -47,6 +47,8 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS256,jwtProperties.getSecretkey())
                 .compact();
     }
+
+
     //토큰 복호화 및 클레임 확인
     public Claims getClaims(String token)
     {
@@ -67,6 +69,11 @@ public class JwtUtil {
         } catch (IllegalArgumentException e){
             throw new JwtException("JWT claims string is empty");
         }
+    }
+
+    public String getUserIdFromToken(String token) {
+        Claims claims = getClaims(token);
+        return claims.get("id", String.class); // 클레임 키가 'userId' 라면
     }
 
     //사용자 인증

@@ -23,7 +23,7 @@ import java.time.LocalDate;
 public class MemberEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_key;
+    private Long userKey;
 
     @Column(unique = true, nullable = false)
     private String id;

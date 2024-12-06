@@ -11,7 +11,7 @@ import rakuproject.raku.domain.auth.dto.response.JsonWebTokenResponse;
 import rakuproject.raku.domain.auth.service.AuthService;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class AuthController {
 

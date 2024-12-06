@@ -26,11 +26,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter { //jwt를 인
             throws ServletException, IOException {
 
         String jwt=null;
+        String id = null;
         String authorization=request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if(StringUtils.hasText(authorization) && authorization.startsWith("Bearer")){
             //Bearer JWT
             jwt= authorization.substring(7);
+            id = jwtUtil.getUserIdFromToken(jwt);
         }
         if(jwt != null){
 

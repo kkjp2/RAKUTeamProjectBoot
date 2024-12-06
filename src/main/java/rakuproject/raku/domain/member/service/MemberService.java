@@ -26,6 +26,6 @@ public class MemberService {
 
         // 회원 정보 저장
         memberRepositroy.save(memberEntity);
-        return memberEntity.getUser_key();
+        return memberEntity.getUserKey();
     }
 }
