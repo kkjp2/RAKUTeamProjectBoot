@@ -5,15 +5,14 @@ import com.example.board_test.board.entity.BoardEntity;
 import com.example.board_test.board.entity.FavoriteEntity;
 import com.example.board_test.board.entity.FestivalBoardEntity;
 import com.example.board_test.domain.member.entity.MemberEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
+@Setter
 public class FavoriteRequestDTO {
     private Long fav_id;
     private MemberEntity memberId; // 사용자 ID

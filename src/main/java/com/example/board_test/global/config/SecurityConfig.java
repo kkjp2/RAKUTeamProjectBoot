@@ -52,7 +52,8 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(
                         authorize->
-                                authorize.requestMatchers("/api/users/**","/api/auth/**","/board/**","/boards/**","/festival/**").permitAll().
+                                authorize.requestMatchers
+                                                ("/api/users/**","/api/auth/**","/board/**","/boards/**","/festival/**","/favorite/**").permitAll().
                                         requestMatchers("/admin/**").hasAnyRole("ADMIN").
                                         requestMatchers("/user/**").hasAnyRole("USER").
                                         anyRequest()

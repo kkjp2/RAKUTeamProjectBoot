@@ -19,6 +19,7 @@ public class FavoriteEntity {
     @ManyToOne
     @JoinColumn(name = "userKey")
     private MemberEntity member;
+
     @ManyToOne
     @JoinColumn(name = "nId")
     private BoardEntity board;
