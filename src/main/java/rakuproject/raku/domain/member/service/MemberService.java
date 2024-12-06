@@ -15,8 +15,6 @@ public class MemberService {
     private final MemberRepository memberRepositroy;
     private final PasswordEncoder passwordEncoder;
 
-
-    //회원 가입
     public Long registerMember(MemberDTO memberDTO){
         // 비밀번호 암호화
         String encodedPassword = passwordEncoder.encode(memberDTO.getPwd());
