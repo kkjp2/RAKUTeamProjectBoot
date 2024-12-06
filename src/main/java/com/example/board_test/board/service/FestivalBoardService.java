@@ -1,19 +1,22 @@
 package com.example.board_test.board.service;
 
 
-import com.example.board_test.board.dto.request.FestivalBoardRequestDTO;
+import com.example.board_test.board.dto.request.FestivalRegisterRequest;
 import com.example.board_test.board.dto.response.FestivalBoardResponseDTO;
 import com.example.board_test.board.entity.FestivalBoardEntity;
 import com.example.board_test.board.repository.FestivalBoardRepository;
+import com.example.board_test.domain.member.dto.MemberDTO;
 import com.example.board_test.domain.member.entity.MemberEntity;
-import com.example.board_test.domain.member.entity.enums.MemberRole;
+import com.example.board_test.domain.member.mapper.MemberMapper;
 import com.example.board_test.domain.member.repository.MemberRepository;
+import com.example.board_test.global.security.MemberSecurity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,72 +31,67 @@ public class FestivalBoardService {
     @Autowired
     private final MemberRepository memberRepository;
 
-
-    public Long createFestivalBoard(FestivalBoardRequestDTO festivalBoardRequestDTO, Long admin)
+    @Autowired
+    private final MemberSecurity memberSecurity;
+    
+    
+    //게시물 등록
+    @Transactional
+    public void register(FestivalRegisterRequest request)
     {
-        MemberEntity member=memberRepository.findById(admin)
-                .orElseThrow(()-> new IllegalArgumentException("만들수가 없군요.흠."));
-        if(!member.getRole().equals(MemberRole.ADMIN))
-        {
-            throw new SecurityException("오직 관리자만 작성이 가능해요");
-        }
-        festivalBoardRequestDTO.setMember(member);
-        FestivalBoardEntity festivalBoard=festivalBoardRequestDTO.toEntity();
-        festivalBoardRepository.save(festivalBoard);
-        return festivalBoard.getFbId();
+        MemberDTO memberDTO=memberSecurity.getMember();
+        MemberEntity memberEntity = MemberMapper.createEntity(memberDTO);
+
+        FestivalBoardEntity festivalBoardEntity=FestivalBoardEntity.builder()
+                .title(request.getTitle())
+                .content(request.getContent())
+                .image(request.getImage())
+                .category(request.getCategory())
+                .festivalComments(new ArrayList<>())
+                .member(memberEntity)
+                .build();
+        festivalBoardRepository.save(festivalBoardEntity);
     }
-
+    //게시물 상세 조회
     @Transactional(readOnly = true)
-    public FestivalBoardResponseDTO findById(Long f_id)
+    public FestivalBoardResponseDTO findById(Long id)
     {
-        FestivalBoardEntity festivalBoard=festivalBoardRepository.findById(f_id)
-                .orElseThrow(()-> new IllegalArgumentException("찾을수 읎당~"));
-        festivalBoardRepository.View(f_id);
+        FestivalBoardEntity festivalBoard=festivalBoardRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("not found"));
         return new FestivalBoardResponseDTO(festivalBoard);
     }
 
-    public List<FestivalBoardResponseDTO> getAllFestivalBoards()
+    //업데이트
+    @Transactional
+    public void update(FestivalRegisterRequest request)
+    {
+        MemberDTO memberDTO=memberSecurity.getMember();
+        MemberEntity memberEntity=MemberMapper.createEntity(memberDTO);
+        FestivalBoardEntity festivalBoardEntity=festivalBoardRepository.
+                findById(request.getId())
+                .orElseThrow(()->new IllegalArgumentException("not found"));
+        festivalBoardEntity.update(request.getTitle(), request.getContent(), request.getImage());
+    }
+    public List<FestivalBoardResponseDTO> getAllFestivals()
     {
         return festivalBoardRepository.findAll()
                 .stream()
                 .map(FestivalBoardResponseDTO::new)
                 .collect(Collectors.toList());
     }
-
     @Transactional
-    public Long updateFestivalBoard(Long f_id, Long admin, FestivalBoardRequestDTO festivalBoardRequestDTO)
+    public void deleteFestival(Long f_id)
     {
-        MemberEntity member=memberRepository.findById(admin)
-                .orElseThrow(()-> new IllegalArgumentException("끼야야야야야약"));
-        if(!member.getRole().equals(MemberRole.ADMIN))
-        {
-            throw new SecurityException("어떻게 들어오셧나요?");
-        }
-        FestivalBoardEntity festivalBoard=festivalBoardRepository.findById(f_id)
-                .orElseThrow(()-> new IllegalArgumentException("음..못찾겠당.."));
-        festivalBoard.update(festivalBoardRequestDTO.getTitle(),festivalBoardRequestDTO.getContent(),festivalBoardRequestDTO.getImage());
-        return festivalBoard.getFbId();
-    }
-
-    @Transactional
-    public void deleteFestivalBoard(Long f_id, Long admin)
-    {
-        MemberEntity member=memberRepository.findById(admin)
-                .orElseThrow(()-> new IllegalArgumentException("잘못된 접근입니다만?"));
-        if(!member.getRole().equals(MemberRole.ADMIN))
-        {
-            throw new SecurityException("당신이 삭제하면 안되거든요.");
-        }
         festivalBoardRepository.deleteById(f_id);
     }
 
-    @Transactional
-    public void addLike(Long f_id, String nickname)
-    {
-        MemberEntity member=memberRepository.findById(nickname)
-                .orElseThrow(()->new IllegalArgumentException("없"));
-        festivalBoardRepository.Like(f_id,member);
-    }
+//    @Transactional
+//    public void addLike(Long f_id, String nickname)
+//    {
+//        MemberEntity member=memberRepository.findById(nickname)
+//                .orElseThrow(()->new IllegalArgumentException("없"));
+//        festivalBoardRepository.Like(f_id,member);
+//    }
 
 
 
