@@ -12,6 +12,7 @@ import rakuproject.raku.domain.move.entity.MoveReviewEntity;
 import rakuproject.raku.domain.move.repository.MoveReviewRepository;
 import rakuproject.raku.domain.move.service.MoveReviewService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -36,7 +37,7 @@ public class MoveReviewController {
         return ResponseEntity.status(201).body("리뷰 성공！");
     }
 
-    // 모든 회사리뷰 가져오기.
+    //지정 회사의 리뷰 가져오기.
     @GetMapping("/{companyId}")
     public ResponseEntity<List<MoveReviewEntity>> getCommentsByCompanyId(@PathVariable Long companyId) {
         List<MoveReviewEntity> comments = moveReviewService.getCommentsByCompanyId(companyId);
@@ -54,9 +55,8 @@ public class MoveReviewController {
     @GetMapping("/logo")
     public ResponseEntity<List<ReviewWithCompanyDTO>> getReviewsWithLogos() {
         List<ReviewWithCompanyDTO> reviews = moveReviewRepository.fetchReviewsWithLogos();
-        return ResponseEntity.ok(reviews);
+        return ResponseEntity.ok(reviews == null ? new ArrayList<>() : reviews);
     }
-
 
 }
 
