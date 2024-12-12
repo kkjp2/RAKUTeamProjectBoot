@@ -54,7 +54,7 @@ public class SecurityConfig {
                         authorize->
                                 authorize.requestMatchers
                                                 ("/api/users/**","/api/auth/**","/board/**",
-                                                        "/boards/**","/festival/**","/favorite/**").permitAll().
+                                                        "/boards/**","/festival/**","/favorite/**","/hashtag/**").permitAll().
                                         requestMatchers("/admin/**").hasAnyRole("ADMIN").
                                         requestMatchers("/user/**").hasAnyRole("USER").
                                         anyRequest()

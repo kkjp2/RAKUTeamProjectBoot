@@ -82,18 +82,12 @@ public class FavoriteService {
                 .build();
         favoriteRepository.save(favorite);
     }
-//    @Transactional
-//    public void removeFavorite(Long board_id, String nickname)
-//    {
-//        MemberEntity member=memberRepository.findById(nickname)
-//                .orElseThrow(()->new IllegalArgumentException("찾을 수없는 회원이군요!"));
-//        BoardEntity board=boardRepository.findById(board_id)
-//                .orElseThrow(()->new IllegalArgumentException("찾을 수없는 게시글이에요!"));
-//        FavoriteEntity favorite=favoriteRepository.findByMemberAndBoard(member,board)
-//                .orElseThrow(()-> new IllegalArgumentException("하하 이거 참 즐겨찾기에 추가할수 없어용~"));
-//        favoriteRepository.delete(favorite);
-//    }
-//
+    @Transactional
+    public void removeFavorite(Long favId)
+    {
+        favoriteRepository.deleteById(favId);
+    }
+
 //    @Transactional(readOnly = true)
 //    public List<FavoriteEntity> getUserFavorites(String nickname)
 //    {

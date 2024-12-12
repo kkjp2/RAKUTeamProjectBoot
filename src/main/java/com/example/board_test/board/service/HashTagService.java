@@ -1,8 +1,6 @@
 package com.example.board_test.board.service;
 
 
-import com.example.board_test.board.dto.request.HashTagRequestDTO;
-import com.example.board_test.board.dto.response.HashTagResponseDTO;
 import com.example.board_test.board.entity.HashTagEntity;
 import com.example.board_test.board.repository.HashtagRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,27 +19,41 @@ public class HashTagService {
     private final HashtagRepository hashtagRepository;
 
     @Transactional
-    public void searchKeyword(HashTagRequestDTO hashTagRequestDTO)
+    public void searchTag(String keyword)
     {
-        String keyword=hashTagRequestDTO.getKeyword();
-        if(hashtagRepository.existsByKeyword(keyword))
-        {
-            hashtagRepository.SearchCount(keyword);
+        HashTagEntity hashTag=hashtagRepository.findByKeyword(keyword);
+
+        if(hashTag != null) {
+            hashTag.setCount(hashTag.getCount()+1);
         }
         else{
-            HashTagEntity newHashTag= hashTagRequestDTO.toEntity();
-            hashtagRepository.save(newHashTag);
+            hashTag=HashTagEntity.builder()
+                    .keyword(keyword)
+                    .count(1)
+                    .build();
         }
+        hashtagRepository.save(hashTag);
+    }
+    @Transactional(readOnly = true)
+    public List<HashTagEntity> getTop10HashTags()
+    {
+        return hashtagRepository.findTop10ByCount();
     }
 
-    @Transactional(readOnly = true)
-    public List<HashTagResponseDTO> getTop10Hashtags()
-    {
-//        return hashtagRepository.findTop10ByOrderBySearchCountDesc()
-//                .stream()
-//                .map(HashTagResponseDTO::new)
-//                .collect(Collectors.toList());
-        return null;
-    }
+//    @Transactional
+//    public void searchKeyword(HashTagRequestDTO hashTagRequestDTO)
+//    {
+//        String keyword=hashTagRequestDTO.getKeyword();
+//        if(hashtagRepository.existsByKeyword(keyword))
+//        {
+//            hashtagRepository.SearchCount(keyword);
+//        }
+//        else{
+//            HashTagEntity newHashTag= hashTagRequestDTO.toEntity();
+//            hashtagRepository.save(newHashTag);
+//        }
+//    }
+
+
 
 }

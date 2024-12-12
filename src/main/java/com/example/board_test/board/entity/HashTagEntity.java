@@ -11,6 +11,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @ToString
+@Setter
 public class HashTagEntity {
 
     @Id
@@ -22,5 +23,6 @@ public class HashTagEntity {
 
     @Column(nullable = false, columnDefinition = "integer default 0")
     private int count; // 검색 횟수를 저장할 필드, 기본값은 0
+
 
 }

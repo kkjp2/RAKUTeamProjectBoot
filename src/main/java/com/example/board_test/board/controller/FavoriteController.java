@@ -8,9 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,6 +33,16 @@ public class FavoriteController {
             return ResponseEntity.internalServerError().body("서버 내부 오류가 발생했습니다.");
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteFavorite(@PathVariable("id") Long favId)
+    {
+
+        favoriteService.removeFavorite(favId);
+        return ResponseEntity.noContent().build();
+    }
+
+
 
 
 
