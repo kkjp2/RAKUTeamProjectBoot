@@ -16,17 +16,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.List;
 
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class FavoriteService {
-    @Autowired
-    private final MemberRepository memberRepository;
     @Autowired
     private final BoardRepository boardRepository;
     @Autowired
@@ -35,70 +30,77 @@ public class FavoriteService {
     private final FavoriteRepository favoriteRepository;
     @Autowired
     private final MemberSecurity memberSecurity;
+    @Autowired
+    private final MemberRepository memberRepository;
 
-
-//    @Transactional
-//    public void register(FavoriteRequestDTO favoriteRequestDTO)
-//    {
-//        MemberDTO memberDTO=memberSecurity.getMember();
-//        MemberEntity memberEntity= MemberMapper.createEntity(memberDTO);
-//
-//        FavoriteEntity favoriteEntity=FavoriteEntity.builder()
-//                .board(favoriteRequestDTO.getBoardId())
-//                .festivalBoard(favoriteRequestDTO.getFestivalBoardId())
-//                .member(memberEntity)
-//                .build();
-//        favoriteRepository.save(favoriteEntity);
-//    }
-
-
-
-    // 즐겨찾기 추가
     @Transactional
-    public void addFavorite(@RequestBody FavoriteRequestDTO favoriteRequestDTO)
-    {
+    public void addFavorite(FavoriteRequestDTO favoriteRequestDTO) {
+        MemberEntity memberEntity = getMemberEntity(favoriteRequestDTO.getMemberId());
 
-        MemberEntity member=memberRepository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("찾을수 업는 회원"));
-
-        BoardEntity board=boardRepository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("찾을 수없는 게시글"));
-
-        FestivalBoardEntity festivalBoard=festivalBoardRepository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("NOT FOUND"));
-
-        if(favoriteRepository.existsByMemberAndBoard(member,board))
-        {
-            throw new IllegalArgumentException("이미 추가된 게시글입니다~");
+        if (favoriteRequestDTO.getBoardId() != null) {
+            handleBoardFavorite(favoriteRequestDTO.getBoardId(), memberEntity);
+        } else if (favoriteRequestDTO.getFestivalBoardId() != null) {
+            handleFestivalBoardFavorite(favoriteRequestDTO.getFestivalBoardId(), memberEntity);
+        } else {
+            throw new IllegalArgumentException("요청 데이터가 유효하지 않습니다.");
         }
-        FavoriteEntity favorite= FavoriteEntity.builder()
-                .member(member)
+    }
+
+    private MemberEntity getMemberEntity(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
+    }
+
+    private void handleBoardFavorite(Long boardId, MemberEntity memberEntity) {
+        BoardEntity board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다. 게시글 ID: " + boardId));
+
+        favoriteRepository.findByMemberAndBoard(memberEntity, board)
+                .ifPresent(favorite -> {
+                    throw new IllegalArgumentException("이미 추가된 게시글입니다.");
+                });
+
+        FavoriteEntity favorite = FavoriteEntity.builder()
+                .member(memberEntity)
                 .board(board)
+                .build();
+        favoriteRepository.save(favorite);
+    }
+
+    private void handleFestivalBoardFavorite(Long festivalBoardId, MemberEntity memberEntity) {
+        FestivalBoardEntity festivalBoard = festivalBoardRepository.findById(festivalBoardId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 축제 게시글입니다. 축제 게시글 ID: " + festivalBoardId));
+
+        favoriteRepository.findByMemberAndFestivalBoard(memberEntity, festivalBoard)
+                .ifPresent(favorite -> {
+                    throw new IllegalArgumentException("이미 추가된 축제 게시글입니다.");
+                });
+
+        FavoriteEntity favorite = FavoriteEntity.builder()
+                .member(memberEntity)
                 .festivalBoard(festivalBoard)
                 .build();
         favoriteRepository.save(favorite);
-
     }
-
-    @Transactional
-    public void removeFavorite(Long board_id, String nickname)
-    {
-        MemberEntity member=memberRepository.findById(nickname)
-                .orElseThrow(()->new IllegalArgumentException("찾을 수없는 회원이군요!"));
-        BoardEntity board=boardRepository.findById(board_id)
-                .orElseThrow(()->new IllegalArgumentException("찾을 수없는 게시글이에요!"));
-        FavoriteEntity favorite=favoriteRepository.findByMemberAndBoard(member,board)
-                .orElseThrow(()-> new IllegalArgumentException("하하 이거 참 즐겨찾기에 추가할수 없어용~"));
-        favoriteRepository.delete(favorite);
-    }
-
-    @Transactional(readOnly = true)
-    public List<FavoriteEntity> getUserFavorites(String nickname)
-    {
-        MemberEntity member= memberRepository.findById(nickname)
-                .orElseThrow(()-> new IllegalArgumentException("찾을 수없어~~~용~"));
-        return favoriteRepository.findByMember(member);
-    }
+//    @Transactional
+//    public void removeFavorite(Long board_id, String nickname)
+//    {
+//        MemberEntity member=memberRepository.findById(nickname)
+//                .orElseThrow(()->new IllegalArgumentException("찾을 수없는 회원이군요!"));
+//        BoardEntity board=boardRepository.findById(board_id)
+//                .orElseThrow(()->new IllegalArgumentException("찾을 수없는 게시글이에요!"));
+//        FavoriteEntity favorite=favoriteRepository.findByMemberAndBoard(member,board)
+//                .orElseThrow(()-> new IllegalArgumentException("하하 이거 참 즐겨찾기에 추가할수 없어용~"));
+//        favoriteRepository.delete(favorite);
+//    }
+//
+//    @Transactional(readOnly = true)
+//    public List<FavoriteEntity> getUserFavorites(String nickname)
+//    {
+//        MemberEntity member= memberRepository.findById(nickname)
+//                .orElseThrow(()-> new IllegalArgumentException("찾을 수없어~~~용~"));
+//        return favoriteRepository.findByMember(member);
+//    }
 
 
 
