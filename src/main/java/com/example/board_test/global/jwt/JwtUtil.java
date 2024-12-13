@@ -69,6 +69,11 @@ public class JwtUtil {
             throw new JwtException("JWT claims string is empty");
         }
     }
+    public String getUserIdFromToken(String token) {
+        Claims claims = getClaims(token);
+        return claims.get("id", String.class); // 클레임 키가 'userId' 라면
+    }
+
 
     //사용자 인증
     public Authentication getAuthentication(String token)
