@@ -3,12 +3,13 @@ package rakuproject.raku.domain.mypage.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import rakuproject.raku.domain.mypage.dto.request.NickEditRequest;
 import rakuproject.raku.domain.mypage.dto.response.MypageMainResponse;
 import rakuproject.raku.domain.mypage.service.MypageServiceImpl;
+import rakuproject.raku.domain.mypage.service.NickEditServiceImpl;
 import rakuproject.raku.domain.mypage.service.UserServiceImpl;
 
 @RestController
@@ -22,6 +23,9 @@ public class MypageController {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private NickEditServiceImpl nickEditService;
+
 
     @GetMapping
     public MypageMainResponse getUserInfo(@RequestHeader("Authorization") String authorizationHeader){
@@ -30,8 +34,19 @@ public class MypageController {
 
         Long userkey = userService.getUserKeyFromToken(token);
 
-        System.out.println(userkey);
-
         return mypageService.getUserInfo(userkey);
+    }
+
+    @PostMapping("/nickedit")
+    public ResponseEntity<String> updateNickname(@RequestHeader("Authorization") String authorizationHeader ,@RequestBody NickEditRequest request) {
+        String token = authorizationHeader.substring(7);
+
+        Long userkey = userService.getUserKeyFromToken(token);
+        try {
+            nickEditService.updateNickname(userkey, request.getNick());
+            return ResponseEntity.ok("Nickname updated successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to update nickname: " + e.getMessage());
+        }
     }
 }

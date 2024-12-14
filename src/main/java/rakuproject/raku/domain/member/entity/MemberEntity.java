@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @ToString
 @EntityListeners(value = {
         AuditingEntityListener.class
@@ -31,7 +32,7 @@ public class MemberEntity {
     @Column(nullable = false)
     private String pwd;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String nick;
 
     @Column(nullable = false)
