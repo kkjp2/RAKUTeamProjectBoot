@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "rental_board")
@@ -62,13 +63,24 @@ public class RentalBoardEntity extends TimeEntity {
     @JoinColumn(name = "userKey",nullable = false)
     private MemberEntity member;
 
-    public void update(String
-            rentalTitle, String rentalContent,
-                       String rentalImage)
+    @OneToMany(mappedBy = "rentalBoard",fetch = FetchType.EAGER,cascade =CascadeType.REMOVE)
+    @OrderBy("reviewId asc")
+    private List<RentalReviewEntity> reviewList;
+
+    public void update(String rentalTitle, String rentalContent,
+                       String rentalImage, int rentalPrice,
+                       LocalDateTime startDate, LocalDateTime endDate,
+                       String rentalAddress, String rentalHomeType
+    )
     {
         this.rentalTitle=rentalTitle;
         this.rentalContent=rentalContent;
         this.rentalImage=rentalImage;
+        this.rentalPrice=rentalPrice;
+        this.startDate=startDate;
+        this.endDate=endDate;
+        this.rentalAddress=rentalAddress;
+        this.rentalHomeType=rentalHomeType;
     }
 
 

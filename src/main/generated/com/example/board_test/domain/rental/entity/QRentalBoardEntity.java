@@ -54,6 +54,8 @@ public class QRentalBoardEntity extends EntityPathBase<RentalBoardEntity> {
 
     public final NumberPath<Integer> rentalViewCnt = createNumber("rentalViewCnt", Integer.class);
 
+    public final ListPath<RentalReviewEntity, QRentalReviewEntity> reviewList = this.<RentalReviewEntity, QRentalReviewEntity>createList("reviewList", RentalReviewEntity.class, QRentalReviewEntity.class, PathInits.DIRECT2);
+
     public final DateTimePath<java.time.LocalDateTime> startDate = createDateTime("startDate", java.time.LocalDateTime.class);
 
     public QRentalBoardEntity(String variable) {
