@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/realty_DB
+    username: root
+    password: zx12cv34!@
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+application:
+  jwt:
+    secret-key: d1e7de6c6976969fb2ff10df6ac9d782a897fa9893af8da675be368d9e2b3561
+    expiration: 9000000 # 150-minute access token
+    refresh-expiration: 86400000 # 24-hour refresh token
+
+
