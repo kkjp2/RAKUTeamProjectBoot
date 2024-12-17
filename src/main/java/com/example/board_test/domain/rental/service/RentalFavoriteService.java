@@ -33,7 +33,9 @@ public class RentalFavoriteService {
         MemberEntity memberEntity= getMemberEntity(requestDTO.getMemberId());
         if(requestDTO.getRentalBoardId() != null)
         {
-
+            handleRentalFavorite(requestDTO.getRentalBoardId(),memberEntity);
+        }else{
+            throw new IllegalArgumentException("유효하지 않습니다.");
         }
     }
 
