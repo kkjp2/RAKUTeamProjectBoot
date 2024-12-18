@@ -20,5 +20,4 @@ public class MemberDTO {
     private String bookmark;
     private String recent;
 
-
 }
