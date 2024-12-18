@@ -1,9 +1,10 @@
 package com.example.board_test.domain.rental.entity;
 
+import com.example.board_test.domain.member.entity.MemberEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "rental_chat_message")
@@ -18,24 +19,43 @@ public class RentalChatMessageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long msgId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roomId", nullable = false)
     private RentalChatRoomEntity chatRoom;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String msgContent;
 
-    @Column
-    private String msgType;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MsgType msgType;
 
     @Column(nullable = false)
-    private Timestamp msgSendTime;
+    private LocalDateTime msgSendTime;
 
     @Column
     private String msgImage;
 
-    @Column
-    private Boolean readCheck;
+    @Column(nullable = false)
+    private Boolean readCheck=false;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "senderId", nullable = false)
+    private MemberEntity sender;
+
+    public enum MsgType{
+        TEXT,
+        IMAGE,
+        VIDEO,
+        FILE
+    }
+
+    @PrePersist
+    protected void onCreate()
+    {
+        if(this.msgSendTime == null)
+            this.msgSendTime = LocalDateTime.now();
+    }
 
 
 

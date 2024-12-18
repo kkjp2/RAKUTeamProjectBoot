@@ -17,3 +17,6 @@ application:
     secretKey: d1e7de6c6976969fb2ff10df6ac9d782a897fa9893af8da675be368d9e2b3561
     expiration: 9000000 # 150? access token
     refreshExpiration: 86400000 # 1? refresh token
+file:
+  upload:
+    dir: D:\\react1\upload-dir

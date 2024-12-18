@@ -2,6 +2,7 @@ package com.example.board_test.domain.rental.dto.response;
 
 
 import com.example.board_test.domain.rental.entity.RentalReviewEntity;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@Data
 public class RentalReviewResponseDTO {
 
     private Long reviewId;

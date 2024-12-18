@@ -30,11 +30,13 @@ public class QRentalChatMessageEntity extends EntityPathBase<RentalChatMessageEn
 
     public final StringPath msgImage = createString("msgImage");
 
-    public final DateTimePath<java.sql.Timestamp> msgSendTime = createDateTime("msgSendTime", java.sql.Timestamp.class);
+    public final DateTimePath<java.time.LocalDateTime> msgSendTime = createDateTime("msgSendTime", java.time.LocalDateTime.class);
 
-    public final StringPath msgType = createString("msgType");
+    public final EnumPath<RentalChatMessageEntity.MsgType> msgType = createEnum("msgType", RentalChatMessageEntity.MsgType.class);
 
     public final BooleanPath readCheck = createBoolean("readCheck");
+
+    public final com.example.board_test.domain.member.entity.QMemberEntity sender;
 
     public QRentalChatMessageEntity(String variable) {
         this(RentalChatMessageEntity.class, forVariable(variable), INITS);
@@ -54,7 +56,8 @@ public class QRentalChatMessageEntity extends EntityPathBase<RentalChatMessageEn
 
     public QRentalChatMessageEntity(Class<? extends RentalChatMessageEntity> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.chatRoom = inits.isInitialized("chatRoom") ? new QRentalChatRoomEntity(forProperty("chatRoom")) : null;
+        this.chatRoom = inits.isInitialized("chatRoom") ? new QRentalChatRoomEntity(forProperty("chatRoom"), inits.get("chatRoom")) : null;
+        this.sender = inits.isInitialized("sender") ? new com.example.board_test.domain.member.entity.QMemberEntity(forProperty("sender")) : null;
     }
 
 }
