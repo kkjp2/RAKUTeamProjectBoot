@@ -4,7 +4,9 @@ import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import rakuproject.raku.domain.member.dto.CompanyMemberDTO;
 import rakuproject.raku.domain.member.dto.MemberDTO;
+import rakuproject.raku.domain.member.repository.CompanyMemberRepository;
 
 import java.util.Collection;
 import java.util.Collections;
