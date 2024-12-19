@@ -1,10 +1,9 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/realty_DB
-    username: root
-    password: zx12cv34!@
-
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/rakuproject
+    username: Raku
+    password: Bootuser123!@#
   jpa:
     hibernate:
       ddl-auto: update
@@ -12,11 +11,32 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
 
 application:
   jwt:
-    secret-key: d1e7de6c6976969fb2ff10df6ac9d782a897fa9893af8da675be368d9e2b3561
-    expiration: 9000000 # 150-minute access token
-    refresh-expiration: 86400000 # 24-hour refresh token
+    secretKey: d1e7de6c6976969fb2ff10df6ac9d782a897fa9893af8da675be368d9e2b3561
+    expiration: 9000000 # 150? access token
+    refreshExpiration: 86400000 # 1? refresh token
 
 
+mail:
+  host: smtp.gmail.com
+  port: 587
+  username: ${SPRING_MAIL_USERNAME}
+  password: ${SPRING_MAIL_PASSWORD}
+  properties:
+    mail:
+      smtp:
+        auth: true
+        timeout: 5000
+        starttls:
+          enable: true
+
+file:
+  upload:
+    dir: D:\\react\upload-dir
