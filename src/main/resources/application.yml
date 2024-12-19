@@ -1,9 +1,9 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/move_company
-    username: moveuser
-    password: moveuser123!@#
+    url: jdbc:mysql://localhost:3306/rakuproject
+    username: Raku
+    password: Bootuser123!@#
   jpa:
     hibernate:
       ddl-auto: update
@@ -39,4 +39,4 @@ mail:
 
 file:
   upload:
-    dir: /Users/sueunjo/Documents/upload
+    dir: D:\\react\upload-dir
