@@ -12,68 +12,77 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "BuildData") // 데이터베이스 테이블 이름과 매핑
+@Table(name = "BuildData")
 public class HouseDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "B_buildNumber") // 데이터베이스 컬럼 이름과 매핑
-    private Long buildNumber; // 필드 이름은 반드시 소문자로 시작
+    @Column(name = "B_buildNumber")
+    private Long buildNumber;
 
     @Column(name = "B_name", nullable = false)
-    private String name; // 매물명
+    private String name;
 
     @Column(name = "B_building_type", nullable = false)
-    private String buildingType; // 건축물 종류
+    private String buildingType;
 
     @Column(name = "B_floors", nullable = false)
-    private Integer floors; // 건축 층수
+    private Integer floors;
 
     @Column(name = "B_room_type", nullable = false)
-    private String roomType; // 방 구분
+    private String roomType;
 
     @Column(name = "B_is_new", nullable = false)
-    private Boolean isNew; // 구/신축 구분
+    private Boolean isNew;
 
     @Column(name = "B_sale_type", nullable = false)
-    private String saleType; // 월세/매매/월세+매매
+    private String saleType;
 
     @Column(name = "B_rent_price")
-    private String rentPrice; // 월세 값
+    private String rentPrice;
 
     @Column(name = "B_sale_price")
-    private String salePrice; // 매매 값
+    private String salePrice;
 
     @Column(name = "B_is_duplex", nullable = false)
-    private Boolean isDuplex; // 복층/단층 구분
+    private Boolean isDuplex;
 
     @Column(name = "B_prefecture", nullable = false)
-    private String prefecture; // 지방
+    private String prefecture;
 
     @Column(name = "B_address", nullable = false)
-    private String address; // 주소
+    private String address;
 
     @Column(name = "B_detailed_address", nullable = false)
-    private String detailedAddress; // 상세 주소
+    private String detailedAddress;
 
     @Column(name = "B_ranking")
-    private String ranking; // 랭킹
+    private String ranking;
 
     @Column(name = "B_deposit")
-    private String deposit; // 보증금
+    private String deposit;
 
     @Column(name = "B_previous_use")
-    private String previousUse; // 이전 사용처
+    private String previousUse;
 
     @Column(name = "B_construction_date", nullable = false)
-    private LocalDate constructionDate; // 건축년월
+    private LocalDate constructionDate;
 
     @Column(name = "B_tags")
-    private String tags; // 태그
+    private String tags;
 
     @Column(name = "B_building_size", nullable = false)
-    private String buildingSize; // 건축물 크기
+    private String buildingSize;
 
     @Column(name = "realty_member_key", nullable = false)
-    private int realtyMemberKey; // 부동산 회원 키
+    private int realtyMemberKey;
+
+    @Lob
+    @Column(name = "B_picture", nullable = true)
+    private byte[] picture; // 그림 데이터를 저장하는 필드 추가
+
+    // 전체 주소 반환 메서드 추가
+    public String getFullAddress() {
+        return address + " " + detailedAddress;
+    }
 }
