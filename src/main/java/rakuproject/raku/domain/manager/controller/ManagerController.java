@@ -1,7 +1,9 @@
 package rakuproject.raku.domain.manager.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import rakuproject.raku.domain.manager.service.ManagerService;
@@ -36,6 +38,15 @@ public class ManagerController {
         return members.isEmpty()?ResponseEntity.notFound().build():ResponseEntity.ok(members);
     }
 
-
+    //회원 삭제 기능
+    @DeleteMapping("/deleteUserByEmail")
+    public ResponseEntity<String> deleteUserByEmail(@RequestParam String id) {
+        try {
+            managerService.deleteUser(id);
+            return ResponseEntity.ok("사용자를 성공적으로 삭제 하였습니다");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
 }
