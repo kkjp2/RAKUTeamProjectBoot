@@ -45,4 +45,11 @@ public class ManagerService {
         memberRepository.delete(member);
     }
 
+    //일반 유저를 관리자로 설정
+    public MemberEntity setUserAsAdmin(String id){
+        MemberEntity member = memberRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("사용자가 존재하지않음"));
+        member.setRole(MemberRole.ADMIN);
+        return memberRepository.save(member);
+    }
 }
