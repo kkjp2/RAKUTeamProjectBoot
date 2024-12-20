@@ -17,7 +17,8 @@ public class ManagerService {
     @Autowired
     private final ManagerQueryService managerQueryService;
 
-    private MemberRepository memberRepository;
+    @Autowired
+    private final MemberRepository memberRepository;
     // 메일로 사용자 검색
     public Optional<MemberEntity> searchByEmail(String email) {
 
