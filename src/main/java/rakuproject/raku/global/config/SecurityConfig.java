@@ -50,9 +50,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorize->
                                 authorize.requestMatchers("/api/users/membership","/api/users","/api/auth/**","/api/mypage/**","/api/move/**",
+<<<<<<< HEAD
                                                 "/api/users/**","/api/realty/company/membership", "/api/companyusers/**","/api/houses/**","/api/ann/**","/api/images/**","/board/**"
                                         ,"/boards/**","/festival/**","/festivals/**"
                                         ).permitAll().
+=======
+                                                "/api/users/**","/api/realty/company/**", "/api/companyusers/**","/api/houses/**","/api/ann/**","/api/images/**").permitAll().
+>>>>>>> 20c580cfb50db5d2a2508622677591b146016f8d
                                         requestMatchers("/admin/**").hasAnyRole("ADMIN").
                                         requestMatchers("/api/mypage/**").hasAnyRole("USER").
 
