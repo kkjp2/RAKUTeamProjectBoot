@@ -25,7 +25,10 @@ public class ManagerQueryServiceImpl implements ManagerQueryService {
 
     @Override
     public List<MemberEntity> findByNickname(String nickname) {
-        return List.of();
+        String query = "SELECT m FROM MemberEntity m WHERE m.nick LIKE :nickname";
+        TypedQuery<MemberEntity> typedQuery = entityManager.createQuery(query, MemberEntity.class);
+        typedQuery.setParameter("nickname", "%" + nickname + "%");
+        return typedQuery.getResultList();
     }
 
     @Override
