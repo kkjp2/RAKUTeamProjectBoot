@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rakuproject.raku.domain.member.entity.MemberEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -18,5 +19,10 @@ public class ManagerService {
         return managerQueryService.findByEmail(email);
     }
 
+    // 닉네임으로 사용가 검색
+    public List<MemberEntity> searchByNickname(String nickname) {
+
+        return managerQueryService.findByNickname(nickname);
+    }
 
 }
