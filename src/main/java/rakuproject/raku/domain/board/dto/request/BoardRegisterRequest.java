@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,6 +18,6 @@ public class BoardRegisterRequest {
     private String content;
     private String image;
     private int category;
-    private List<ImageRequestDTO> images;
+
 
 }

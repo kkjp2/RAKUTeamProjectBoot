@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import rakuproject.raku.domain.board.dto.request.FestivalRegisterRequest;
 import rakuproject.raku.domain.board.dto.request.ImageRequestDTO;
+import rakuproject.raku.domain.board.dto.response.BoardResponseDTO;
 import rakuproject.raku.domain.board.dto.response.FestivalBoardResponseDTO;
 import rakuproject.raku.domain.board.service.FestivalBoardService;
 import rakuproject.raku.domain.board.service.ImageService;
@@ -43,11 +44,15 @@ public class FestivalBoardController {
         festivalBoardService.update(request);
         return ResponseEntity.ok().build();
     }
-    @GetMapping
-    public ResponseEntity<List<FestivalBoardResponseDTO>> getAllFestivals()
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<FestivalBoardResponseDTO>> getAllFestivals(@PathVariable("category") int category)
     {
-        List<FestivalBoardResponseDTO> festivals=festivalBoardService.getAllFestivals();
-        return ResponseEntity.ok(festivals);
+        System.out.println(category);
+        if (category < 1 || category > 8) {
+            return ResponseEntity.badRequest().body(null);  // 잘못된 카테고리 번호인 경우 400 응답
+        }
+        List<FestivalBoardResponseDTO> boards = festivalBoardService.findBoardsByCategory(category);
+        return ResponseEntity.ok(boards);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

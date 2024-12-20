@@ -10,8 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import rakuproject.raku.domain.board.entity.FestivalBoardEntity;
 import rakuproject.raku.domain.member.entity.MemberEntity;
 
+import java.util.List;
+
 @Repository
 public interface FestivalBoardRepository extends JpaRepository<FestivalBoardEntity, Long> {
+
+
+    List<FestivalBoardEntity> findByCategory(int category);
 
     @Modifying
     @Transactional

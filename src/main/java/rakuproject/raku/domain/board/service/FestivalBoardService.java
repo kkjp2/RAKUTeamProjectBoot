@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import rakuproject.raku.domain.board.dto.request.FestivalRegisterRequest;
+import rakuproject.raku.domain.board.dto.response.BoardResponseDTO;
 import rakuproject.raku.domain.board.dto.response.FestivalBoardResponseDTO;
+import rakuproject.raku.domain.board.entity.BoardEntity;
 import rakuproject.raku.domain.board.entity.FestivalBoardEntity;
 import rakuproject.raku.domain.board.repository.FestivalBoardRepository;
 import rakuproject.raku.domain.member.dto.MemberDTO;
@@ -60,6 +62,15 @@ public class FestivalBoardService {
         FestivalBoardEntity festivalBoard=festivalBoardRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("not found"));
         return new FestivalBoardResponseDTO(festivalBoard);
+    }
+    public List<FestivalBoardResponseDTO> findBoardsByCategory(int category) {
+        if (category < 1 || category > 8) {
+            throw new IllegalArgumentException("잘못된 카테고리 번호입니다.");
+        }
+        List<FestivalBoardEntity> boards = festivalBoardRepository.findByCategory(category);
+        return boards.stream()
+                .map(FestivalBoardResponseDTO::new)
+                .collect(Collectors.toList());
     }
 
     //업데이트

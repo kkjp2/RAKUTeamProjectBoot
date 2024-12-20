@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import rakuproject.raku.domain.board.dto.request.BoardRegisterRequest;
+import rakuproject.raku.domain.board.dto.request.LikeRequestDTO;
 import rakuproject.raku.domain.board.dto.response.BoardResponseDTO;
 import rakuproject.raku.domain.board.entity.BoardEntity;
 import rakuproject.raku.domain.board.repository.BoardRepository;
@@ -114,19 +115,46 @@ public class BoardService {
         boardRepository.deleteById(n_id);
     }
 
+//    @Transactional
+//    public void addLike(Long n_id, Long id)
+//    {
+//        MemberEntity member= memberRepository.findById(id)
+//                .orElseThrow(()->new IllegalArgumentException("없음"));
+//        BoardEntity board=boardRepository.findById(n_id)
+//                        .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 게시글"));
+//        board.setLikeCnt(board.getLikeCnt() + 1);
+//        boardRepository.Like(n_id,member);
+//    }
     @Transactional
-    public void addLike(Long n_id, String nickname)
-    {
-        MemberEntity member= memberRepository.findById(nickname)
-                .orElseThrow(()->new IllegalArgumentException("없음"));
-        boardRepository.Like(n_id,member);
+    public void addLike(LikeRequestDTO likeRequestDTO) {
+        // 1. 게시글 조회
+        BoardEntity board = boardRepository.findById(likeRequestDTO.getBoardId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
+
+        // 2. 사용자 조회
+        MemberEntity member = memberRepository.findById(likeRequestDTO.getMemberId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+
+        // 3. 좋아요 수 증가
+        board.setLikeCnt(board.getLikeCnt() + 1);
+
+        // 4. 데이터 저장
+        boardRepository.save(board); // likeCnt 증가된 BoardEntity 저장
     }
 
+    @Transactional
     public void addDisLike(Long n_id, String nickname)
     {
         MemberEntity member=memberRepository.findById(nickname)
                 .orElseThrow(()->new IllegalArgumentException("없음"));
         boardRepository.DisLike(n_id,member);
+    }
+
+
+    @Transactional
+    public void incrementViewCount(Long id)
+    {
+        boardRepository.View(id);
     }
 
 

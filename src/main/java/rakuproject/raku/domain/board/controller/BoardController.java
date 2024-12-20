@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import rakuproject.raku.domain.board.dto.request.BoardRegisterRequest;
 import rakuproject.raku.domain.board.dto.request.ImageRequestDTO;
+import rakuproject.raku.domain.board.dto.request.LikeRequestDTO;
 import rakuproject.raku.domain.board.dto.response.BoardResponseDTO;
 import rakuproject.raku.domain.board.service.BoardService;
 import rakuproject.raku.domain.board.service.ImageService;
@@ -76,6 +77,34 @@ public class BoardController {
 //        List<ImageResponseDTO> images= imageService.getImagesByBoard(board);
 //        return ResponseEntity.ok(images);
 //    }
+
+//    @PostMapping("/{id}/like")
+//    public ResponseEntity<String> addLike(@PathVariable("id")Long id, @RequestBody Long nick)
+//    {
+//        boardService.addLike(id,nick);
+//        return ResponseEntity.ok().build();
+//    }
+    @PostMapping("/{id}/like")
+    public ResponseEntity<String> addLike(@RequestBody LikeRequestDTO likeRequestDTO) {
+        boardService.addLike(likeRequestDTO);
+        return ResponseEntity.ok("좋아요 성공!");
+        }
+
+    @PostMapping("{id}/dislike")
+    public ResponseEntity<Void> addDisLike(@PathVariable("id") Long id, @RequestBody String nick)
+    {
+        boardService.addDisLike(id,nick);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{id}/view")
+    public ResponseEntity<Void> addView(@PathVariable("id")Long id)
+    {
+        boardService.incrementViewCount(id);
+        return ResponseEntity.ok().build();
+    }
+
+
 
 
 }

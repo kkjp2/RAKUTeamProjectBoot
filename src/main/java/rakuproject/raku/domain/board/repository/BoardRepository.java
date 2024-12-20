@@ -24,6 +24,8 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
     void Like(@Param("nId") Long nId, @Param("member") MemberEntity member);
 
 
+
+
     @Modifying
     @Transactional
     @Query("UPDATE BoardEntity b SET b.dislikeCnt= b.dislikeCnt+1 WHERE b.nId= :nId AND b.member =:member")
