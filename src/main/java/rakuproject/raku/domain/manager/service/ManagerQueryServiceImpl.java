@@ -33,6 +33,9 @@ public class ManagerQueryServiceImpl implements ManagerQueryService {
 
     @Override
     public List<MemberEntity> findByRole(MemberRole role) {
-        return List.of();
+        String query = "SELECT m FROM MemberEntity m WHERE m.role = :role";
+        TypedQuery<MemberEntity> typedQuery = entityManager.createQuery(query, MemberEntity.class);
+        typedQuery.setParameter("role", role);
+        return typedQuery.getResultList();
     }
 }
