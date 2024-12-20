@@ -1,9 +1,9 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/rakuproject
-    username: Raku
-    password: Bootuser123!@#
+    url: jdbc:mysql://localhost:3306/realty_DB
+    username: root
+    password: zx12cv34!@
   jpa:
     hibernate:
       ddl-auto: update

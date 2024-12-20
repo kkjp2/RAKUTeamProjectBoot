@@ -55,4 +55,3 @@ public class HouseDetailDTO {
         this.picture = houseDetail.getPicture(); // 그림 데이터 설정
     }
 }
-
