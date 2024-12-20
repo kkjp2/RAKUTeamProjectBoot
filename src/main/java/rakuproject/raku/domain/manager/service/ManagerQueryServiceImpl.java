@@ -5,6 +5,7 @@ import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rakuproject.raku.domain.member.entity.MemberEntity;
+import rakuproject.raku.domain.member.entity.enums.MemberRole;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,11 @@ public class ManagerQueryServiceImpl implements ManagerQueryService {
 
     @Override
     public List<MemberEntity> findByNickname(String nickname) {
+        return List.of();
+    }
+
+    @Override
+    public List<MemberEntity> findByRole(MemberRole role) {
         return List.of();
     }
 }
