@@ -24,6 +24,7 @@ import java.time.LocalDate;
 public class MemberEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_key")
     private Long userKey;
 
     @Column(unique = true, nullable = false)
