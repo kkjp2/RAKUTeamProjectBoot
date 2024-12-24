@@ -6,13 +6,14 @@ import rakuproject.raku.domain.member.dto.MemberDTO;
 import rakuproject.raku.domain.member.entity.MemberEntity;
 
 public class MemberMapper {
-    
+
 
 
     public static MemberEntity createEntity(MemberDTO memberDTO){
 
 
         return   MemberEntity.builder()
+                .userKey(memberDTO.getUserKey())
                 .id(memberDTO.getId())
                 .pwd(memberDTO.getPwd())
                 .nick(memberDTO.getNick())
@@ -26,6 +27,7 @@ public class MemberMapper {
 
     public static MemberDTO createDTO(MemberEntity memberEntity){
         return MemberDTO.builder()
+                .userKey(memberEntity.getUserKey())
                 .id(memberEntity.getId())
                 .pwd(memberEntity.getPwd())
                 .nick(memberEntity.getNick())
@@ -38,3 +40,4 @@ public class MemberMapper {
     }
 
 }
+

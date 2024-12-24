@@ -2,20 +2,20 @@ package rakuproject.raku.domain.auth.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import rakuproject.raku.domain.auth.dto.request.AuthenticationRequest;
 import rakuproject.raku.domain.auth.dto.response.JsonWebTokenResponse;
 import rakuproject.raku.domain.auth.service.AuthService;
+import rakuproject.raku.domain.auth.service.CompanyAuthServiceImpl;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
+    private final CompanyAuthServiceImpl companyAuthService;
+
 
     @PostMapping
     public ResponseEntity<JsonWebTokenResponse> auth(
@@ -24,11 +24,13 @@ public class AuthController {
         return ResponseEntity.ok(authService.auth(request));
     }
 
-//    @PostMapping //auth
-//    public void auth( @RequestBody AuthenticationRequest request)
-//    {
-//        authService.auth(request);
-//    }
-
+    @PostMapping("/companyusers")
+    public ResponseEntity<String> companyAuth(
+            @RequestBody AuthenticationRequest request
+    ){
+        String response = companyAuthService.companyAuth(request);
+        return ResponseEntity.ok(response);
+    }
 
 }
+

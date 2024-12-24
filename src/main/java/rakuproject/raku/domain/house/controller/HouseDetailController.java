@@ -1,5 +1,6 @@
 package rakuproject.raku.domain.house.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,7 @@ public class HouseDetailController {
         this.houseDetailService = houseDetailService;
     }
 
+    // 모든 집 상세 정보를 가져오는 메서드
     @GetMapping
     public ResponseEntity<List<HouseDetailDTO>> getAllHouseDetails() {
         List<HouseDetail> houseDetails = houseDetailService.getAllHouseDetails();
@@ -30,6 +32,7 @@ public class HouseDetailController {
         return ResponseEntity.ok(houseDetailDtos);
     }
 
+    // 특정 빌딩 번호로 집 상세 정보를 가져오는 메서드
     @GetMapping("/{bBuildNumber}")
     public ResponseEntity<HouseDetailDTO> getHouseDetail(@PathVariable Long bBuildNumber) {
         return houseDetailService.getHouseDetailByBBuildNumber(bBuildNumber)
@@ -37,12 +40,27 @@ public class HouseDetailController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // 집 상세 정보 생성 메서드
     @PostMapping
-    public ResponseEntity<HouseDetailDTO> createHouseDetail(@RequestBody HouseDetail houseDetail) {
-        HouseDetail createdHouse = houseDetailService.createHouseDetail(houseDetail);
-        return ResponseEntity.ok(new HouseDetailDTO(createdHouse));
+    public ResponseEntity<?> createHouseDetail(@RequestBody HouseDetail houseDetail) {
+        // 필수 입력 항목인 주소 체크
+        if (houseDetail.getAddress() == null || houseDetail.getAddress().isEmpty()) {
+            return ResponseEntity.badRequest().body("주소는 필수 입력 항목입니다.");
+        }
+
+        try {
+            // HouseDetail을 저장
+            HouseDetail createdHouse = houseDetailService.createHouseDetail(houseDetail);
+
+            // DTO 객체로 반환
+            HouseDetailDTO houseDetailDTO = new HouseDetailDTO(createdHouse);
+            return ResponseEntity.status(HttpStatus.CREATED).body(houseDetailDTO);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Failed to create HouseDetail: " + e.getMessage());
+        }
     }
 
+    // 집 상세 정보 업데이트 메서드
     @PutMapping("/{id}")
     public ResponseEntity<HouseDetailDTO> updateHouseDetail(
             @PathVariable Long id,
@@ -52,12 +70,14 @@ public class HouseDetailController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // 집 상세 정보 삭제 메서드
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteHouseDetail(@PathVariable Long id) {
         houseDetailService.deleteHouseDetail(id);
         return ResponseEntity.noContent().build();
     }
 
+    // 집 이미지 업로드 메서드
     @PostMapping("/{bBuildNumber}/upload-image")
     public ResponseEntity<String> uploadHouseImage(
             @PathVariable Long bBuildNumber,

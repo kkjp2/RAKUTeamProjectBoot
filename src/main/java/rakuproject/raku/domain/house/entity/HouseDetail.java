@@ -1,6 +1,7 @@
 package rakuproject.raku.domain.house.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -50,9 +51,11 @@ public class HouseDetail {
     @Column(name = "B_prefecture", nullable = false)
     private String prefecture;
 
+    @NotNull
     @Column(name = "B_address", nullable = false)
     private String address;
 
+    @NotNull
     @Column(name = "B_detailed_address", nullable = false)
     private String detailedAddress;
 
@@ -84,5 +87,8 @@ public class HouseDetail {
     // 전체 주소 반환 메서드 추가
     public String getFullAddress() {
         return address + " " + detailedAddress;
+    }
+
+    public void setPicturePath(String filePath) {
     }
 }

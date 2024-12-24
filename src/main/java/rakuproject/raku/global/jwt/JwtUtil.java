@@ -47,6 +47,8 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS256,jwtProperties.getSecretkey())
                 .compact();
     }
+
+
     //토큰 복호화 및 클레임 확인
     public Claims getClaims(String token)
     {
@@ -69,6 +71,12 @@ public class JwtUtil {
         }
     }
 
+    public String getUserIdFromToken(String token) {
+        Claims claims = getClaims(token);
+        System.out.println("Claims: " + claims); // 클레임 전체 출력
+        return claims.getSubject(); // 클레임 키가 'userId' 라면
+    }
+
     //사용자 인증
     public Authentication getAuthentication(String token)
     {
@@ -88,6 +96,7 @@ public class JwtUtil {
         return new UsernamePasswordAuthenticationToken
                 (customUserDetails, null, customUserDetails.getAuthorities());
     }
+
 
 
 }

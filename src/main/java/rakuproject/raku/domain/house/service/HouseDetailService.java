@@ -16,22 +16,27 @@ public class HouseDetailService {
 
     private final HouseDetailRepository houseDetailRepository;
 
+    // 생성자 주입
     public HouseDetailService(HouseDetailRepository houseDetailRepository) {
         this.houseDetailRepository = houseDetailRepository;
     }
 
+    // 모든 집 상세 정보 가져오기
     public List<HouseDetail> getAllHouseDetails() {
         return houseDetailRepository.findAll();
     }
 
+    // 빌딩 번호로 집 상세 정보 가져오기
     public Optional<HouseDetail> getHouseDetailByBBuildNumber(Long bBuildNumber) {
         return houseDetailRepository.findByBuildNumber(bBuildNumber);
     }
 
+    // 집 상세 정보 생성
     public HouseDetail createHouseDetail(HouseDetail houseDetail) {
         return houseDetailRepository.save(houseDetail);
     }
 
+    // 집 상세 정보 업데이트
     public Optional<HouseDetail> updateHouseDetail(Long id, HouseDetail updatedData) {
         return houseDetailRepository.findById(id).map(existing -> {
             existing.setName(updatedData.getName());
@@ -43,10 +48,12 @@ public class HouseDetailService {
         });
     }
 
+    // 집 상세 정보 삭제
     public void deleteHouseDetail(Long id) {
         houseDetailRepository.deleteById(id);
     }
 
+    // 이미지 업로드
     public void uploadImage(Long bBuildNumber, MultipartFile file) throws IOException {
         Optional<HouseDetail> houseDetailOptional = houseDetailRepository.findByBuildNumber(bBuildNumber);
         if (houseDetailOptional.isEmpty()) {
